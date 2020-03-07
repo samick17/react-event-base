@@ -1,4 +1,4 @@
-import {lerp} from '../mathf';
+import { lerp } from '../core/Mathf';
 
 const createImageAdapter = (canvas) => {
 	return {
@@ -51,7 +51,7 @@ const DOMUtils = {
 			element.removeEventListener(name, callback);
 		};
 	},
-	htmlToImage: async (innerHtml) => {
+	htmlToImage: async (innerHtml, scale) => {
 		const html2canvas = (await import('html2canvas')).default;
 		const element = DOMUtils.createElement(innerHtml);
 		Object.assign(element.style, {
@@ -61,7 +61,10 @@ const DOMUtils = {
 			top: '-999999px'
 		});
 		document.body.append(element);
-		const canvas = await html2canvas(element);
+		const canvas = await html2canvas(element, {
+			backgroundColor: null,
+			scale
+		});
 		element.remove();
 		return createImageAdapter(canvas);
 	},
@@ -143,5 +146,7 @@ export const createElement = DOMUtils.createElement;
 export const registerEvent = DOMUtils.registerEvent;
 export const htmlToImage = DOMUtils.htmlToImage;
 export const svgToImage = DOMUtils.svgToImage;
+export const scrollTo = DOMUtils.scrollTo;
+export const calculateSizeByAspect = DOMUtils.calculateSizeByAspect;
 
 export default DOMUtils;

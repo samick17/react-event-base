@@ -71,8 +71,8 @@ export const forEach = (objects, callback) => {
     }
 };
 export const forEachAsync = async (objects, callback) => {
-    return await forEach(objects, async object => {
-        return await callback(object);
+    return await forEach(objects, async (object, key, index) => {
+        return await callback(object, key, index);
     });
 };
 export const findObjectBy = (objects, byFn) => {
@@ -183,7 +183,7 @@ export const filter = (objects, filterFn) => {
             result.push(object);
         }
     });
-    return result
+    return result;
 };
 export const cloneData = (data) => {
     return JSON.parse(JSON.stringify(data));
@@ -200,7 +200,7 @@ export const delegate = (target, fnName, args) => {
             const fn = splittedFns[splittedFns.length - 1];
             return caller[fn].apply(caller, args);
         } catch(err) {
-            
+
         }
     }
 };
@@ -226,9 +226,18 @@ export const exportMethods = (target, source, fnNames) => {
 export const exportMethodsBy = (target, fnNames, fn) => {
     forEach(fnNames, fnName => {
         target[fnName] = function() {
-            fn(fnName, arguments);
+            return fn(fnName, arguments);
         };
     });
+    return target;
+};
+export const exportAllMethodsBy = (target, source, byFn) => {
+    forEach(source, (_, fnName) => {
+        target[fnName] = function() {
+            return byFn(fnName, arguments);
+        };
+    });
+    return target;
 };
 export const cloneDeep = (object) => {
     const cloneValue = (value) => {
@@ -314,4 +323,18 @@ export const diffTwoObjects = (objectsMap1, objectsMap2, getObjectId) => {
         update: itemsUpdated,
         remove: itemsRemoved
     };
+};
+export const createKeyActionHandler = (keyHandlerMap) => {
+    let fn;
+    const actionHandler = {
+        handle: function(action) {
+            fn = keyHandlerMap[action] || (() => {});
+            return actionHandler;
+        },
+        apply: function() {
+            const args = arguments;
+            fn.apply(args[0], args);
+        }
+    };
+    return actionHandler;
 };

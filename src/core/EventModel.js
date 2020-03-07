@@ -5,7 +5,7 @@ const triggerEventsAsync = async ({target, eventArray, args}) => {
     }
 }
 
-class BaseEventModel {
+class EventModel {
     constructor(data) {
         this._events = {};
         Object.assign(this, data);
@@ -74,4 +74,4 @@ class BaseEventModel {
     }
 };
 
-export default BaseEventModel;
+export default EventModel;

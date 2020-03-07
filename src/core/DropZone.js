@@ -1,20 +1,28 @@
 import { NOOP } from '../utils/ObjectUtils';
-import BaseEventModel from './BaseEventModel';
+import EventModel from './EventModel';
+import IdGenerator from './IdGenerator';
+import { createEventTypes } from '../utils/EventUtils';
 
-let serialId = 1;
+export const Events = createEventTypes([
+	'BoundingChange',
+	'Enter',
+	'Move',
+	'Leave',
+	'Drop',
+	'Remove'
+]);
 
 const isPointInRect = (point, rect) => {
 	return point.x >= rect.x && point.x <= rect.x + rect.w &&
 	point.y >= rect.y && point.y <= rect.y + rect.h;
 };
 
+const dropZonIdGenerator = new IdGenerator();
 const genId = () => {
-	const newId = serialId;
-	serialId++;
-	return newId.toString(16);
-}
+	return dropZonIdGenerator.genId();
+};
 
-class DropZone extends BaseEventModel {
+class DropZone extends EventModel {
 
 	_id = genId();
 	_jobs = [];
@@ -46,6 +54,7 @@ class DropZone extends BaseEventModel {
 			w: w,
 			h: h
 		};
+		this.trigger(Events.BoundingChange);
 	}
 
 	/* setRect by element */
@@ -79,6 +88,7 @@ class DropZone extends BaseEventModel {
 			args: [context]
 		});
 		this.executeJobs();
+		this.trigger(Events.Enter, [context]);
 	}
 
 	move(context) {
@@ -87,6 +97,7 @@ class DropZone extends BaseEventModel {
 			args: [context]
 		});
 		this.executeJobs();
+		this.trigger(Events.Move, [context]);
 	}
 
 	leave(context) {
@@ -95,6 +106,7 @@ class DropZone extends BaseEventModel {
 			args: [context]
 		});
 		this.executeJobs();
+		this.trigger(Events.Leave, [context]);
 	}
 
 	drop(context) {
@@ -103,6 +115,7 @@ class DropZone extends BaseEventModel {
 			args: [context]
 		});
 		this.executeJobs();
+		this.trigger(Events.Drop, [context]);
 	}
 
 	executeJobs() {
@@ -129,7 +142,7 @@ class DropZone extends BaseEventModel {
 	}
 
 	remove() {
-		this.trigger('remove');
+		this.trigger(Events.Remove);
 	}
 }
 

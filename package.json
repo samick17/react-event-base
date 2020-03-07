@@ -22,9 +22,12 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
+    "html2canvas": "^1.0.0-rc.5",
+    "js-md5": "^0.7.3",
     "prop-types": "^15.5.4",
     "react": "^15.0.0 || ^16.0.0",
-    "react-dom": "^15.0.0 || ^16.0.0"
+    "react-dom": "^15.0.0 || ^16.0.0",
+    "lzutf8": "^0.5.5"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

@@ -13,17 +13,9 @@ npm install --save reacted
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
 
-import MyComponent from 'reacted'
 
-class Example extends Component {
-  render () {
-    return (
-      <MyComponent />
-    )
-  }
-}
+
 ```
 
 ## License
