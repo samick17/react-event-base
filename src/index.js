@@ -1,5 +1,5 @@
 /* Utility functions */
-export * as DOMUtils from './utils/DOMUtils';
+import * as DOMUtils from './utils/DOMUtils';
 export * as EventUtils from './utils/EventUtils';
 export * as IOUtils from './utils/IOUtils';
 export * as ObjectUtils from './utils/ObjectUtils';

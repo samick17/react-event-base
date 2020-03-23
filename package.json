@@ -24,16 +24,19 @@
   "peerDependencies": {
     "html2canvas": "^1.0.0-rc.5",
     "js-md5": "^0.7.3",
+    "lzutf8": "^0.5.5",
     "prop-types": "^15.5.4",
     "react": "^15.0.0 || ^16.0.0",
-    "react-dom": "^15.0.0 || ^16.0.0",
-    "lzutf8": "^0.5.5"
+    "react-dom": "^15.0.0 || ^16.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.8.6",
     "@babel/preset-react": "^7.8.3",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@rollup/plugin-url": "^4.0.2",
     "@svgr/rollup": "^5.2.0",
     "babel-eslint": "^10.1.0",
     "cross-env": "^7.0.0",
@@ -51,11 +54,8 @@
     "react-scripts": "^3.4.0",
     "rollup": "^1.32.0",
     "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-peer-deps-external": "^2.2.2",
-    "rollup-plugin-postcss": "^2.1.1",
-    "rollup-plugin-url": "^3.0.1"
+    "rollup-plugin-postcss": "^2.1.1"
   },
   "files": [
     "dist"

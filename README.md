@@ -12,10 +12,22 @@ npm install --save reacted
 
 ## Usage
 
-```jsx
-
-
-
+```js
+import {
+	DOMUtils,
+	EventUtils,
+	IOUtils,
+	ObjectUtils,
+	Component,
+	EventModel,
+	IdGenerator,
+	Mathf,
+	ObjectManager,
+	SortedObjectManager,
+	Draggable,
+	DropZone,
+	AdvancedDraggable
+} from 'reacted';
 ```
 
 ## License

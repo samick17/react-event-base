@@ -71,9 +71,23 @@ export const forEach = (objects, callback) => {
     }
 };
 export const forEachAsync = async (objects, callback) => {
-    return await forEach(objects, async (object, key, index) => {
-        return await callback(object, key, index);
-    });
+    objects = objects || [];
+    const length = objects.length;
+    if(length) {
+        for(let i = 0; i < length; i++) {
+            if(await callback(objects[i], i, i)) {
+                break;
+            }
+        }
+    } else {
+        let index = 0;
+        for(let i in objects) {
+            if(await callback(objects[i], i, index)) {
+                break;
+            }
+            index++;
+        }
+    }
 };
 export const findObjectBy = (objects, byFn) => {
     for(let key in objects) {
@@ -126,11 +140,13 @@ export const map = (objects, callback) => {
     let result = [];
     if(length) {
         for(let i = 0; i < length; i++) {
-            result.push(callback(objects[i], i));
+            result.push(callback(objects[i], i, i));
         }
     } else {
-        for(let i in objects) {
-            result.push(callback(objects[i], i));
+        let index = 0;
+        for(let key in objects) {
+            result.push(callback(objects[key], key, index));
+            index++;
         }
     }
     return result;
@@ -337,4 +353,15 @@ export const createKeyActionHandler = (keyHandlerMap) => {
         }
     };
     return actionHandler;
+};
+export function format(text) {
+    const args = Array.from(arguments).slice(1);
+    return text.replace(/{(\d+)}/g, (_matched, indexStr) => {
+        let index = parseInt(indexStr, 10)
+        return args[index];
+    });
+};
+export function toUpperCamel(text) {
+    const firstWord = text.charAt(0);
+    return text.replace(firstWord, firstWord.toUpperCase());
 };
