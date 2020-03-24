@@ -1,7 +1,8 @@
 import {
 	cloneDeep,
 	deepEqual,
-	diffTwoObjects
+	diffTwoObjects,
+	format
 } from './ObjectUtils';
 
 test('ObjectUtils:cloneDeep', () => {
@@ -52,4 +53,7 @@ test('ObjectUtils:deepEqual', () => {
 });
 test('ObjectUtils:diffTwoObjects', () => {
 
+});
+test('ObjectUtils:format', () => {
+	expect(format('name: {0}, type: {1}', 'samick', 'host')).toBe('name: samick, type: host');
 });

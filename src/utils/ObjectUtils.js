@@ -365,3 +365,31 @@ export function toUpperCamel(text) {
     const firstWord = text.charAt(0);
     return text.replace(firstWord, firstWord.toUpperCase());
 };
+export const getCharacterLength = (ch) => {
+    let chCode = ch.charCodeAt()
+    if (chCode >= 0 && chCode <= 128) {
+        return 1;
+    } else {
+        return 2;
+    }
+};
+export const getShortText = (text, maxLength) => {
+    let currentLength = 0;
+    let endIndex = 0;
+    for (let i in text) {
+        let ch = text[i];
+        let chLength = getCharacterLength(ch);
+        if (currentLength + chLength <= maxLength) {
+            currentLength += chLength;
+            endIndex++;
+        } else {
+            endIndex--;
+            break;
+        }
+    }
+    if (endIndex === text.length) {
+        return text;
+    } else {
+        return text.substring(0, endIndex) + '...';
+    }
+};
