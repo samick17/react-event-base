@@ -76,7 +76,7 @@ export const createDragContextWith = (dragContextMap={}) => (dragId) => {
   return dragContext;
 };
 
-const draggable = (elem, onStart, onDrag, onEnd) => {
+export const createDraggable = (elem, {onStart, onDrag, onEnd}={}) => {
   const jElem = $(elem);
   const onStartHandler = onStart || function() {};
   const onDragHandler = onDrag || function() {};
@@ -198,4 +198,4 @@ const draggable = (elem, onStart, onDrag, onEnd) => {
   });
 };
 
-export default draggable;
+export default createDraggable;

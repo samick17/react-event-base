@@ -146,4 +146,6 @@ class DropZone extends EventModel {
 	}
 }
 
-export default DropZone;
+export const createDropZone = ({onEnter, onMove, onLeave, onDrop}={}) => {
+	return new DropZone(onEnter, onMove, onLeave, onDrop);
+};

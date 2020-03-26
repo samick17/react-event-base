@@ -1,4 +1,4 @@
-import {registerEvent} from '@Models/Base/DOMUtils';
+import {registerEvent} from './DOMUtils';
 
 export const Tab = 9;
 export const ArrowUp = 38;

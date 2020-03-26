@@ -28,35 +28,39 @@ class AdvacedDraggable {
 		this.dropzones = [];
 		let touchObjectMap = this.touchObjectMap = {};
 		this.srcValue = undefined;
-		this.unbindDraggableEvent = Draggable(elem, (point, context) => {
-			let touchId = context.id;
-			touchObjectMap[touchId] = {
-				start: point,
-				current: point,
-				lastDropZone: undefined
-			};
-		}, (point, context) => {
-			let touchId = context.id;
-			let touchObject = touchObjectMap[touchId];
-			if(touchObject) {
-				touchObject.current = point;
-				touchObject.isMoved = true;
-				updateDropZones(touchObject, this);
-				if(touchObject.lastDropZone) {
-					touchObject.lastDropZone.move(touchObject);
+		this.unbindDraggableEvent = Draggable(elem, {
+			onStart: (point, context) => {
+				let touchId = context.id;
+				touchObjectMap[touchId] = {
+					start: point,
+					current: point,
+					lastDropZone: undefined
+				};
+			},
+			onDrag: (point, context) => {
+				let touchId = context.id;
+				let touchObject = touchObjectMap[touchId];
+				if(touchObject) {
+					touchObject.current = point;
+					touchObject.isMoved = true;
+					updateDropZones(touchObject, this);
+					if(touchObject.lastDropZone) {
+						touchObject.lastDropZone.move(touchObject);
+					}
 				}
-			}
-		}, (point, context) => {
-			let touchId = context.id;
-			let touchObject = touchObjectMap[touchId];
-			if(touchObject) {
-				updateDropZones(touchObject, this);
-				if(touchObject.lastDropZone) {
-					touchObject.lastDropZone.drop(touchObject);
+			},
+			onEnd: (point, context) => {
+				let touchId = context.id;
+				let touchObject = touchObjectMap[touchId];
+				if(touchObject) {
+					updateDropZones(touchObject, this);
+					if(touchObject.lastDropZone) {
+						touchObject.lastDropZone.drop(touchObject);
+					}
 				}
+				delete touchObjectMap[touchId];
 			}
-			delete touchObjectMap[touchId];
-		})
+		});
 		this._unbindRemoveEvents = [];
 	}
 
@@ -103,9 +107,11 @@ class AdvacedDraggable {
 
 }
 
-const createAdvanceDraggable = (elem) => {
+export const createAdvanceDraggable = (elem) => {
 	return new AdvacedDraggable(elem);
 };
+
+export default AdvacedDraggable;
 
 /*
 Usage:
@@ -141,4 +147,3 @@ Draggable(elem)
 .addDropZones([new DropZone(....), ...])
 
 */
-export default createAdvanceDraggable;
