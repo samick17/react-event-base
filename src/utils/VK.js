@@ -13,7 +13,6 @@ export const registerKeyDownEventHandlers = (handlers) => {
 		if(e.ctrlKey) keys.push('ctrl');
 		if(e.altKey) keys.push('alt');
 		if(e.shiftKey) keys.push('shift');
-		// console.log(e.key);
 		if(keys.length === 0) keys.push(e.key);
 		const key = keys.sort().join('+');
 		const handler = handlers[key];

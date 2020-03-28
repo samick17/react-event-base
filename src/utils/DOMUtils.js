@@ -68,63 +68,51 @@ const DOMUtils = {
 		element.remove();
 		return createImageAdapter(canvas);
 	},
-	svgToImage: async (svgText, options) => {
+	svgToImage: (svgText, options) => {
 		options = options || {};
 		const MaxWidth = options.MaxWidth || 400;
 		const MaxHeight = options.MaxHeight || 400;
-		const svg = DOMUtils.createElement(svgText.trim());
-		const img = new Image();
 		const canvas = document.createElement('canvas');
-		const xml = new XMLSerializer().serializeToString(svg);
-		const reViewBox = /<svg.*viewBox="(.*)".*>/;
-		const reViewBoxResult = reViewBox.exec(xml);
-		const viewBox = reViewBoxResult[1].split(' ').map(value => parseInt(value));
-		const size = {
-			width: viewBox[2],
-			height: viewBox[3]
-		};
-		const svg64 = btoa(xml);
-		const b64Header = 'data:image/svg+xml;base64,';
-		const image64 = b64Header + svg64;
+		const ctx = canvas.getContext('2d');
+		const svg64 = window.btoa(svgText);
+		const b64Start = 'data:image/svg+xml;base64,';
+		const image64 = b64Start + svg64;
+		const img = new Image();
 		return new Promise((resolve, reject) => {
-			img.onload = () => {
+			img.onload = function() {
 				const aspect = img.width / img.height;
-				let preferredWidth = MaxWidth;
-				let preferredHeight = preferredWidth / aspect;
-				if(preferredHeight > MaxHeight) {
-					preferredHeight = MaxHeight;
-					preferredWidth = preferredHeight * aspect;
-				}
-				canvas.width = preferredWidth;
-				canvas.height = preferredHeight;
-				canvas.getContext('2d').drawImage(img, 0, 0, size.width, size.height, 0, 0, preferredWidth, preferredHeight);
+				const size = DOMUtils.calculateSizeByAspect({
+					width: MaxWidth,
+					height: MaxHeight
+				}, aspect);
+				canvas.width = size.width;
+				canvas.height = size.height;
+				ctx.drawImage(img, 0, 0, img.width, img.height, (canvas.width - size.width) * .5, (canvas.height - size.height) * .5, size.width, size.height);
 				const canvasAdapter = createImageAdapter(canvas);
 				resolve(canvasAdapter);
 			};
-			img.onerror = (err) => {
+			img.onerror = function(err) {
 				reject(err);
 			};
 			img.src = image64;
 		});
 	},
 	scrollTo: async (element, {startTime, fromValue, toValue, animationTime}) => {
-		const _scrollTo = () => {
+		const scrollTo = () => {
 			let deltaTime = Date.now() - startTime;
 			let t = deltaTime / animationTime;
 			let pos = lerp(fromValue, toValue, t);
-			// $(this.sliderElem).scrollLeft(pos);
 			element.scrollLeft = pos;
 			if(t < 1) {
 				window.requestAnimationFrame(() => {
 					if(t < 1) {
-						_scrollTo();
-						// this._doAnimScroll();
+						scrollTo();
 					}
 				});
 			}
 			return t;
 		};
-		_scrollTo();
+		scrollTo();
 	},
 	calculateSizeByAspect: (maxSize, aspect) => {
 		const width = maxSize.width;
