@@ -183,6 +183,8 @@ export const getMimeTypeByArrayBuffer = (arrayBuffer) => {
 			return 'image/jpeg';
 		case '52494646':
 			return 'image/webp';
+		case '3c737667':
+			return 'image/svg+xml';
 		default:
 			return;
 	}
