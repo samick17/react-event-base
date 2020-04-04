@@ -1,5 +1,5 @@
 import EventModel from './EventModel';
-import { map, forEach, delegate, filter } from '../utils/ObjectUtils';
+import { map, forEach, forEachAsync, delegate, filter } from '../utils/ObjectUtils';
 
 class ObjectManager extends EventModel {
 
@@ -124,6 +124,10 @@ class ObjectManager extends EventModel {
 
     forEach(callback) {
         return forEach(this._objects, callback);
+    }
+
+    forEachAsync(callback) {
+        return forEachAsync(this._objects, callback);
     }
 
     filter(byFn) {
