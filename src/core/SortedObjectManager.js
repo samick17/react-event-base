@@ -1,5 +1,5 @@
 import ObjectManager from './ObjectManager';
-import { map, forEach } from '../utils/ObjectUtils';
+import { map, forEach, forEachAsync } from '../utils/ObjectUtils';
 
 class SortedObjectManager extends ObjectManager {
 
