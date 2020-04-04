@@ -63,7 +63,8 @@ const DOMUtils = {
 		document.body.append(element);
 		const canvas = await html2canvas(element, {
 			backgroundColor: null,
-			scale
+			scale,
+			logging: false
 		});
 		element.remove();
 		return createImageAdapter(canvas);
