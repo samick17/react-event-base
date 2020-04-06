@@ -1,10 +1,10 @@
 {
-  "name": "reacted",
+  "name": "react-event-base",
   "version": "1.0.1",
   "description": "React event-driven library",
   "author": "samick17",
   "license": "MIT",
-  "repository": "samick17/reacted",
+  "repository": "samick17/react-event-base",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
