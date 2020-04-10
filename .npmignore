@@ -15,3 +15,4 @@ yarn-error.log*
 src
 rollup-configs
 node_modules
+dist
