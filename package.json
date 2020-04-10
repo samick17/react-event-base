@@ -1,6 +1,6 @@
 {
   "name": "react-event-base",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React event-driven library",
   "author": "samick17",
   "license": "MIT",
@@ -15,11 +15,18 @@
   "scripts": {
     "test": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
-    "build": "rollup -c",
+    "build": "sh ./build.sh",
+    "build:main": "rollup -c rollup-configs/Main.rollup.config.js",
+    "build:component": "rollup -c rollup-configs/Components.rollup.config.js",
+    "build:core": "rollup -c rollup-configs/Core.rollup.config.js",
+    "build:dnd": "rollup -c rollup-configs/DragAndDrop.rollup.config.js",
+    "build:utils": "rollup -c rollup-configs/DOMUtils.rollup.config.js && rollup -c rollup-configs/EventUtils.rollup.config.js && rollup -c rollup-configs/IOUtils.rollup.config.js && rollup -c rollup-configs/ObjectUtils.rollup.config.js && rollup -c rollup-configs/PerfUtils.rollup.config.js && rollup -c rollup-configs/VK.rollup.config.js",
     "start": "rollup -c -w",
     "prepare": "yarn run build",
     "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build"
+    "deploy": "gh-pages -d example/build",
+    "prepublishOnly": "cp -r ./dist/* . && rm -rf ./dist",
+    "postpublish": "git clean -fd"
   },
   "peerDependencies": {
     "html2canvas": "^1.0.0-rc.5",

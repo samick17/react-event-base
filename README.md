@@ -7,27 +7,43 @@
 ## Install
 
 ```bash
-npm install --save reacted
+npm install --save react-event-base
 ```
 
 ## Usage
 
 ```js
 import {
-	DOMUtils,
+	BaseComponent,
 	EventUtils,
-	IOUtils,
 	ObjectUtils,
-	Component,
+	DOMUtils,
+	IOUtils,
+	PerfUtils,
+	VK,
 	EventModel,
-	IdGenerator,
-	Mathf,
 	ObjectManager,
 	SortedObjectManager,
+	IdGenerator,
+	Mathf,
 	Draggable,
 	DropZone,
 	AdvancedDraggable
-} from 'reacted';
+} from 'react-event-base';
+```
+
+## Usage by module
+
+```js
+import { BaseComponent } from 'react-event-base/Components';
+import EventUtils from 'react-event-base/EventUtils';
+import ObjectUtils from 'react-event-base/ObjectUtils';
+import DOMUtils from 'react-event-base/DOMUtils';
+import IOUtils from 'react-event-base/IOUtils';
+import PerfUtils from 'react-event-base/PerfUtils';
+import VK from 'react-event-base/VK';
+import { Draggable, DropZone, AdvancedDraggable } from 'react-event-base/DragAndDrop';
+import { EventModel, ObjectManager, SortedObjectManager, IdGenerator, Mathf } from 'react-event-base/Core';
 ```
 
 ## License

@@ -6,7 +6,6 @@ export const ArrowDown = 40;
 export const ArrowLeft = 37;
 export const ArrowRight = 39;
 
-
 export const registerKeyDownEventHandlers = (handlers) => {
 	return registerEvent(window, 'keydown', (e) => {
 		let keys = [];
