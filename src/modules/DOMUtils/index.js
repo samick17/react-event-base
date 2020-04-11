@@ -1,1 +1,1 @@
-export * as EventUtils from '../../utils/DOMUtils';
+export * as DOMUtils from '../../utils/DOMUtils';

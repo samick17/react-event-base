@@ -1,1 +1,1 @@
-export * as EventUtils from '../../utils/PerfUtils';
+export * as PerfUtils from '../../utils/PerfUtils';

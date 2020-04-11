@@ -1,1 +1,1 @@
-export * as EventUtils from '../../utils/IOUtils';
+export * as IOUtils from '../../utils/IOUtils';

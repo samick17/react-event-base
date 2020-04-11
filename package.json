@@ -1,10 +1,17 @@
 {
   "name": "react-event-base",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "React event-driven library",
   "author": "samick17",
   "license": "MIT",
   "repository": "samick17/react-event-base",
+  "keywords": [
+    "React"
+    "ReactJS",
+    "EventDriven",
+    "CodeBase",
+    "Drag and Drop"
+  ],
   "main": "index.js",
   "module": "index.es.js",
   "jsnext:main": "index.es.js",
@@ -21,6 +28,7 @@
     "build:core": "rollup -c rollup-configs/Core.rollup.config.js",
     "build:dnd": "rollup -c rollup-configs/DragAndDrop.rollup.config.js",
     "build:utils": "rollup -c rollup-configs/DOMUtils.rollup.config.js && rollup -c rollup-configs/EventUtils.rollup.config.js && rollup -c rollup-configs/IOUtils.rollup.config.js && rollup -c rollup-configs/ObjectUtils.rollup.config.js && rollup -c rollup-configs/PerfUtils.rollup.config.js && rollup -c rollup-configs/VK.rollup.config.js",
+    "build:mathf": "rollup -c rollup-configs/Mathf.rollup.config.js",
     "start": "rollup -c -w",
     "prepare": "yarn run build",
     "predeploy": "cd example && yarn install && yarn run build",
