@@ -16,3 +16,4 @@ src
 rollup-configs
 node_modules
 dist
+docs
