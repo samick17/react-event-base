@@ -1,42 +1,6 @@
+import { $ } from './CustomElement';
+
 const globalMoveEvents = [];
-
-class CustomElement {
-  constructor(element) {
-    this.target = element;
-  }
-  css(styles) {
-    const {target} = this;
-    try {
-      Object.assign(target.style, styles);
-    } catch(err) {
-      console.trace();
-    }
-  }
-  on(name, callback) {
-    const {target} = this;
-    try {
-      target.addEventListener(name, callback);
-    } catch(err) {
-      console.trace();
-    }
-  }
-  off(name, callback) {
-    const {target} = this;
-    try {
-      target.removeEventListener(name, callback);
-    } catch(err) {
-      console.trace();
-    }
-  }
-}
-
-const $ = (target) => {
-  if(target instanceof CustomElement) {
-    return target;
-  } else {
-    return new CustomElement(target);
-  }
-};
 
 export const stopEventChain = (evt) => {
   evt.preventDefault();

@@ -1,39 +1,28 @@
+import { $ as $$} from '../core/CustomElement';
+
 export const createEventTypes = (eventNames) => {
     return eventNames.reduce((m, i, j) => {
         m[i] = j.toString(16);
         return m;
     }, {});
 };
-export const registerEvent = (target, type, fn, unbindArray) => {
+export const registerEvent = (htmlElement, type, fn) => {
     if(type && fn) {
-        let unbindFn = target.on(type, fn);
-        unbindArray.push(unbindFn);
+        return htmlElement.on(type, fn);
     }
 };
-export const registerEvents = (target, eventTypes, eventHandlersMap) => {
+export const registerEvents = (htmlElement, eventHandlers) => {
     const unbindFns = [];
-    for(let key in eventTypes) {
-        let eventType = eventTypes[key];
-        let handlerKey = `on${key}`;
-        registerEvent(target, eventType, eventHandlersMap[handlerKey], unbindFns);
+    for(let key in eventHandlers) {
+        let handler = eventHandlers[key];
+        let unbindFn = registerEvent(htmlElement, key, handler);
+        unbindFn && unbindFns.push(unbindFn);
     }
     return () => {
         unbindFns.forEach(fn => fn());
     };
 };
-export const $ = (elem) => {
-    const wrapper =  {
-        on: (name, fn, options) => {
-            elem.addEventListener(name, fn, options);
-            return wrapper;
-        },
-        off: (name, fn) => {
-            elem.removeEventListener(name, fn);
-            return wrapper;
-        }
-    };
-    return wrapper;
-};
+export const $ = $$;
 export const stopEventChain = (event) => {
     if(event.defaultPrevented) {
         event.preventDefault();

@@ -1,3 +1,3 @@
 # [Core](../README.md)
 
-## Methods
+## [EventModel](./EventModel.md)
