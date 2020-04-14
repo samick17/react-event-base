@@ -3,7 +3,7 @@ import EventModel from '../core/EventModel';
 
 class BaseComponent extends React.Component {
 
-	eventSubject = new EventModel();
+	_eventModel = new EventModel();
 	_elemEvents = [];
 
 	componentDidMount() {
@@ -28,12 +28,6 @@ class BaseComponent extends React.Component {
 	/**/
 	registerClickEvent(elem, callback) {
 		const comp = this;
-		comp.onClick = (evt) => {
-			evt.stopPropagation();
-			evt.preventDefault();
-			comp.launch();
-			return false;
-		};
 		this.onTouchStart = callback;
 		elem.addEventListener('touchstart', callback);
 		comp._elemEvents.push({
@@ -68,15 +62,15 @@ class BaseComponent extends React.Component {
 	}
 
 	on(name, fn) {
-		return this.eventSubject.on(name, fn);
+		return this._eventModel.on(name, fn);
 	}
 
 	off(name, fn) {
-		this.eventSubject.off(name, fn);
+		this._eventModel.off(name, fn);
 	}
 
 	trigger(name, args) {
-		this.eventSubject.trigger(name, args);
+		this._eventModel.trigger(name, args);
 	}
 
 	unbindEvent(name) {

@@ -1,3 +1,5 @@
 # [Components](../README.md)
 
-## Methods
+## Class
+
+ - [BaseComponent](./Components/BaseComponent.md)
