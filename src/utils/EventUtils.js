@@ -6,16 +6,16 @@ export const createEventTypes = (eventNames) => {
         return m;
     }, {});
 };
-export const registerEvent = (htmlElement, type, fn) => {
+export const registerEvent = (elem, type, fn) => {
     if(type && fn) {
-        return htmlElement.on(type, fn);
+        return elem.on(type, fn);
     }
 };
-export const registerEvents = (htmlElement, eventHandlers) => {
+export const registerEvents = (elem, eventHandlers) => {
     const unbindFns = [];
     for(let key in eventHandlers) {
         let handler = eventHandlers[key];
-        let unbindFn = registerEvent(htmlElement, key, handler);
+        let unbindFn = registerEvent(elem, key, handler);
         unbindFn && unbindFns.push(unbindFn);
     }
     return () => {

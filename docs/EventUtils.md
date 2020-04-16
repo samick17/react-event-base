@@ -26,7 +26,7 @@ const Events = createEventTypes([
 
 | Parameters | Type |
 |------------|------|
-| htmlElement | Element |
+| elem | Element |
 | type | string |
 | callback | Function |
 
@@ -35,7 +35,7 @@ const Events = createEventTypes([
 | **Function** the unbind function for registered event. |
 
 ```js
-const unbindFn = registerEvent(htmlElement, 'onClick', () => {
+const unbindFn = registerEvent(elem, 'onClick', () => {
 	console.log('clicked!');
 });
 ```
@@ -44,7 +44,7 @@ const unbindFn = registerEvent(htmlElement, 'onClick', () => {
 
 | Parameters | Type |
 |------------|------|
-| htmlElement | Element |
+| elem | Element |
 | eventHandlers | object<string, function> |
 
 | Returns |
@@ -52,7 +52,7 @@ const unbindFn = registerEvent(htmlElement, 'onClick', () => {
 | **Function** the unbind function for registered event. |
 
 ```js
-const unbindFn = registerEvents(htmlElement, {
+const unbindFn = registerEvents(elem, {
 	'onClick': () => {
 		console.log('clicked!');
 	}
@@ -63,7 +63,7 @@ const unbindFn = registerEvents(htmlElement, {
 
 | Parameters | Type |
 |------------|------|
-| htmlElement | Element |
+| elem | Element |
 
 | Returns |
 |---------|
@@ -94,7 +94,7 @@ stopEventChain(event);
 
 | Parameters | Type |
 |------------|------|
-| htmlElement | Element |
+| elem | Element |
 | events | object |
 
 | Returns |
@@ -102,7 +102,7 @@ stopEventChain(event);
 | **Function** the unbind function for registered event. |
 
 ```js
-registerElementEvents(htmlElement, {
+registerElementEvents(elem, {
 	onClick: () => {
 		console.log('Clicked');
 	},

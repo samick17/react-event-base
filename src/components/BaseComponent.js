@@ -26,39 +26,39 @@ class BaseComponent extends React.Component {
 	onUnmount() {}
 
 	/**/
-	registerClickEvent(elem, callback) {
+	registerClickEvent(elem, fn) {
 		const comp = this;
-		this.onTouchStart = callback;
-		elem.addEventListener('touchstart', callback);
+		this.onTouchStart = fn;
+		elem.addEventListener('touchstart', fn);
 		comp._elemEvents.push({
 			type: 'touchstart',
 			elem: elem,
-			callback: callback
+			fn: fn
 		});
-		elem.addEventListener('mousedown', callback);
+		elem.addEventListener('mousedown', fn);
 		comp._elemEvents.push({
 			type: 'mousedown',
 			elem: elem,
-			callback: callback
+			fn: fn
 		});
 	}
 	unregisterAllClickEvent() {
 		const comp = this;
 		comp._elemEvents.forEach((elemEvent) => {
-			elemEvent.elem.removeEventListener(elemEvent.type, elemEvent.callback);
+			elemEvent.elem.removeEventListener(elemEvent.type, elemEvent.fn);
 		});
 		comp._elemEvents = [];
 	}
 	/**/
 
-	setState(state, callback) {
+	setState(state, fn) {
 		if(!(this.isInit && !this.isUnmounting)) return;
-		super.setState(state, callback);
+		super.setState(state, fn);
 	}
 
-	forceUpdate(callback) {
+	forceUpdate(fn) {
 		if(!(this.isInit && !this.isUnmounting)) return;
-		super.forceUpdate(callback);
+		super.forceUpdate(fn);
 	}
 
 	on(name, fn) {
