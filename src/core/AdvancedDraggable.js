@@ -116,7 +116,7 @@ export default AdvacedDraggable;
 /*
 Usage:
 import Factory from '@Models/Factory'
-import Draggable from '@Models/AdvancedDraggable'
+import { createAdvanceDraggable } from '@Models/AdvancedDraggable'
 
 // onEnter: sourceValue, context
 // onMove: context
@@ -130,19 +130,19 @@ let dropzones = Factory.createDropZones([{
 	h: 32
 }...], onEnterCallback, onMoveCallback, onLeaveCallback, onDropCallback)
 
-Draggable(elem)
+createAdvanceDraggable(elem)
 .setValue(yourDataObject)
 .setDropZones(dropzones)
 
-Draggable(elem)
+createAdvanceDraggable(elem)
 .setValue(yourDataObject)
 .addDropZones(dropzones)
 
-Draggable(elem)
+createAdvanceDraggable(elem)
 .setValue(yourDataObject)
 .addDropZone(new DropZone(....))
 
-Draggable(elem)
+createAdvanceDraggable(elem)
 .setValue(yourDataObject)
 .addDropZones([new DropZone(....), ...])
 

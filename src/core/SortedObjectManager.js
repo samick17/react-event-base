@@ -1,4 +1,4 @@
-import ObjectManager from './ObjectManager';
+import ObjectManager, { getObjectId } from './ObjectManager';
 import { map, forEach, forEachAsync } from '../utils/ObjectUtils';
 
 class SortedObjectManager extends ObjectManager {
@@ -52,12 +52,12 @@ class SortedObjectManager extends ObjectManager {
 	}
 
 	indexOf(object) {
-		const objId = object.getId();
+		const objId = getObjectId(object);
 		return this._indices.indexOf(objId);
 	}
 
 	setObjectIndex(object, newIndex) {
-		const objId = object.getId();
+		const objId = getObjectId(object);
 		if(this.containsId(objId) && newIndex >= 0 && newIndex < this.length) {
 			const objIndex = this._indices.indexOf(objId);
 			this._indices.splice(objIndex, 1);

@@ -1,6 +1,10 @@
 import EventModel from './EventModel';
 import { map, forEach, forEachAsync, delegate, filter } from '../utils/ObjectUtils';
 
+export const getObjectId = (object) => {
+    return object.getId ? object.getId() : object.id;
+};
+
 class ObjectManager extends EventModel {
 
     constructor(data) {
@@ -36,7 +40,7 @@ class ObjectManager extends EventModel {
     doOnRemoveObject(objId) {}
 
     add(object, index) {
-        const objId = object.getId();
+        const objId = getObjectId(object);
         this._add(objId, object, index);
     }
 
@@ -45,7 +49,7 @@ class ObjectManager extends EventModel {
     }
 
     remove(object) {
-        const objId = object.getId();
+        const objId = getObjectId(object);
         this.removeById(objId);
     }
 
@@ -102,7 +106,7 @@ class ObjectManager extends EventModel {
     }
 
     contains(object) {
-        return this.containsId(object.getId());
+        return this.containsId(getObjectId(object));
     }
 
     update(id, data) {
