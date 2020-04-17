@@ -59,7 +59,7 @@ const unbindFn = registerEvents(elem, {
 });
 ```
 
-### **$**
+<!-- ### **$**
 
 | Parameters | Type |
 |------------|------|
@@ -74,7 +74,7 @@ const element = $(document.body);
 element.on('click', () => {
 	console.log('clicked!');
 });
-```
+``` -->
 
 ### **stopEventChain**
 

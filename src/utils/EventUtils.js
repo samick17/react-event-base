@@ -1,4 +1,4 @@
-import { $ as $$} from '../core/CustomElement';
+import { $ } from '../core/CustomElement';
 
 export const createEventTypes = (eventNames) => {
     return eventNames.reduce((m, i, j) => {
@@ -22,7 +22,6 @@ export const registerEvents = (elem, eventHandlers) => {
         unbindFns.forEach(fn => fn());
     };
 };
-export const $ = $$;
 export const stopEventChain = (event) => {
     if(event.defaultPrevented) {
         event.preventDefault();
