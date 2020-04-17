@@ -17,3 +17,7 @@ rollup-configs
 node_modules
 dist
 docs
+scripts
+CHANGELOG.md
+README.md
+build.sh
