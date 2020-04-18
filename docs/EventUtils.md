@@ -1,122 +1,82 @@
-# [EventUtils](../README.md)
+# **[EventUtils](../README.md)**
 
-## Static Properties
+## **Methods**
 
-## Methods
+| Name | Description |
+|------|-------------|
+| [createEventTypes](#createeventtypes) | Create event types from string array |
+| [registerEvent](#registerevent) | Register event for element |
+| [registerEvents](#registerevents) | Register events for element |
+| [stopEventChain](#stopeventchain) | Stop the event handler & bubbling |
+| [registerElementEvents](#registerelementevents) | Register onClick/onDoubleClick/onLongClick event for element |
 
 ### **createEventTypes**
 
-| Parameters | Type |
-|------------|------|
-| eventNames | string[] |
+| Parameters | Type | Description |
+|------------|------|-------------|
+| eventNames | Array | The keys of event |
 
-| Returns |
-|---------|
-| **object** key, value object |
+| Return |
+|--------|
+| **Object** The Event types object |
 
 ```js
 const Events = createEventTypes([
-'AddObject',
-'RemoveObject',
-/\*...etc\*/
+  'AddObject',
+  'RemoveObject',
 ]);
 ```
+---
 
 ### **registerEvent**
 
-| Parameters | Type |
-|------------|------|
-| elem | Element |
-| type | string |
-| callback | Function |
+| Parameters | Type | Description |
+|------------|------|-------------|
+| elem | Element | Element |
+| type | string | The event type |
+| fn | Function | The event handler |
 
-| Returns |
-|---------|
-| **Function** the unbind function for registered event. |
+| Return |
+|--------|
+| **Function** The function which is used to unregister the event handler |
 
-```js
-const unbindFn = registerEvent(elem, 'onClick', () => {
-	console.log('clicked!');
-});
-```
+---
 
 ### **registerEvents**
 
-| Parameters | Type |
-|------------|------|
-| elem | Element |
-| eventHandlers | object<string, function> |
+| Parameters | Type | Description |
+|------------|------|-------------|
+| elem | Element | Element |
+| events | Object | The key-value event handler object |
 
-| Returns |
-|---------|
-| **Function** the unbind function for registered event. |
+| Return |
+|--------|
+| **Function** The function which is used to unregister the event handler |
 
-```js
-const unbindFn = registerEvents(elem, {
-	'onClick': () => {
-		console.log('clicked!');
-	}
-});
-```
-
-<!-- ### **$**
-
-| Parameters | Type |
-|------------|------|
-| elem | Element |
-
-| Returns |
-|---------|
-| **object** key, value object |
-
-```js
-const element = $(document.body);
-element.on('click', () => {
-	console.log('clicked!');
-});
-``` -->
+---
 
 ### **stopEventChain**
 
-| Parameters | Type |
-|------------|------|
-| event | Event |
+| Parameters | Type | Description |
+|------------|------|-------------|
+| event | Event | Event |
 
-| Returns |
-|---------|
+| Return |
+|--------|
 | No return value |
 
-```js
-stopEventChain(event);
-```
+---
 
 ### **registerElementEvents**
 
-| Parameters | Type |
-|------------|------|
-| elem | Element |
-| events | object |
+| Parameters | Type | Description |
+|------------|------|-------------|
+| elem | Element | Element |
+| events | Object | The key-value event handler object |
 
-| Returns |
-|---------|
-| **Function** the unbind function for registered event. |
+| Return |
+|--------|
+| **Function** The function which is used to unregister the event handler |
 
-```js
-registerElementEvents(elem, {
-	onClick: () => {
-		console.log('Clicked');
-	},
-	onDoubleClick: {
-		threshold: 300, // ms
-		handler: () => {
-			console.log('Double Clicked');
-		}
-	},
-	onLongClick: {
-		threshold: 300, // ms
-		handler: () => {
-			console.log('Long Clicked');
-		}
-	}
-});
-```
+---
+

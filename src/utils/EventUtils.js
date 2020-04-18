@@ -1,9 +1,16 @@
 import { $ } from '../core/CustomElement';
 
 /*
- * @Name: createEventTypes
- * @Arg: {Array} eventNames - ['Add', 'Remove']
- * @Return: {Object} - The Event types object
+ * @category: static function
+ * @description: Create event types from string array
+ * @name: createEventTypes
+ * @param: {Array} eventNames - The keys of event
+ * @returns: {Object} - The Event types object
+ * @example:
+ * const Events = createEventTypes([
+ *   'AddObject',
+ *   'RemoveObject',
+ * ]);
  */
 export const createEventTypes = (eventNames) => {
     return eventNames.reduce((m, i, j) => {
@@ -12,11 +19,13 @@ export const createEventTypes = (eventNames) => {
     }, {});
 };
 /*
- * @Name: registerEvent
- * @Arg: {Element} elem - Element
- * @Arg: {string} type - The event type
- * @Arg: {Function} fn - The event handler
- * @Return: {Function} - The function which is used to unregister the event handler
+ * @category: static function
+ * @name: registerEvent
+ * @description: Register event for element
+ * @param: {Element} elem - Element
+ * @param: {string} type - The event type
+ * @param: {Function} fn - The event handler
+ * @returns: {Function} - The function which is used to unregister the event handler
  */
 export const registerEvent = (elem, type, fn) => {
     if(type && fn) {
@@ -24,10 +33,12 @@ export const registerEvent = (elem, type, fn) => {
     }
 };
 /*
- * @Name: registerEvents
- * @Arg: {Element} elem - Element
- * @Arg: {Object} events - The key-value event handler object
- * @Return: {Function} - The function which is used to unregister the event handler
+ * @category: static function
+ * @name: registerEvents
+ * @description: Register events for element
+ * @param: {Element} elem - Element
+ * @param: {Object} events - The key-value event handler object
+ * @returns: {Function} - The function which is used to unregister the event handler
  */
 export const registerEvents = (elem, events) => {
     const unbindFns = [];
@@ -41,9 +52,11 @@ export const registerEvents = (elem, events) => {
     };
 };
 /*
- * @Name: stopEventChain
- * @Arg: {Event} event - Event
- * @Return: No return value
+ * @category: static function
+ * @name: stopEventChain
+ * @description: Stop the event handler & bubbling
+ * @param: {Event} event - Event
+ * @returns: No return value
  */
 export const stopEventChain = (event) => {
     if(event.defaultPrevented) {
@@ -52,10 +65,12 @@ export const stopEventChain = (event) => {
     event.stopPropagation();
 };
 /*
- * @Name: registerElementEvents
- * @Arg: {Element} elem - Element
- * @Arg: {Object} events - The key-value event handler object
- * @Return: No return value
+ * @category: static function
+ * @name: registerElementEvents
+ * @description: Register onClick/onDoubleClick/onLongClick event for element
+ * @param: {Element} elem - Element
+ * @param: {Object} events - The key-value event handler object
+ * @returns: {Function} - The function which is used to unregister the event handler
  */
 export const registerElementEvents = (elem, events) => {
     const jElem = $(elem);
