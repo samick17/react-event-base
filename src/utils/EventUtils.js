@@ -1,20 +1,38 @@
 import { $ } from '../core/CustomElement';
 
+/*
+ * @Name: createEventTypes
+ * @Arg: {Array} eventNames - ['Add', 'Remove']
+ * @Return: {Object} - The Event types object
+ */
 export const createEventTypes = (eventNames) => {
     return eventNames.reduce((m, i, j) => {
         m[i] = j.toString(16);
         return m;
     }, {});
 };
+/*
+ * @Name: registerEvent
+ * @Arg: {Element} elem - Element
+ * @Arg: {string} type - The event type
+ * @Arg: {Function} fn - The event handler
+ * @Return: {Function} - The function which is used to unregister the event handler
+ */
 export const registerEvent = (elem, type, fn) => {
     if(type && fn) {
         return elem.on(type, fn);
     }
 };
-export const registerEvents = (elem, eventHandlers) => {
+/*
+ * @Name: registerEvents
+ * @Arg: {Element} elem - Element
+ * @Arg: {Object} events - The key-value event handler object
+ * @Return: {Function} - The function which is used to unregister the event handler
+ */
+export const registerEvents = (elem, events) => {
     const unbindFns = [];
-    for(let key in eventHandlers) {
-        let handler = eventHandlers[key];
+    for(let key in events) {
+        let handler = events[key];
         let unbindFn = registerEvent(elem, key, handler);
         unbindFn && unbindFns.push(unbindFn);
     }
@@ -22,12 +40,23 @@ export const registerEvents = (elem, eventHandlers) => {
         unbindFns.forEach(fn => fn());
     };
 };
+/*
+ * @Name: stopEventChain
+ * @Arg: {Event} event - Event
+ * @Return: No return value
+ */
 export const stopEventChain = (event) => {
     if(event.defaultPrevented) {
         event.preventDefault();
     }
     event.stopPropagation();
 };
+/*
+ * @Name: registerElementEvents
+ * @Arg: {Element} elem - Element
+ * @Arg: {Object} events - The key-value event handler object
+ * @Return: No return value
+ */
 export const registerElementEvents = (elem, events) => {
     const jElem = $(elem);
     const Noop = () => {};

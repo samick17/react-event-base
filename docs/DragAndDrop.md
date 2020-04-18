@@ -2,6 +2,6 @@
 
 ## 
 
- - [Draggable](./Draggable.md)
- - [DropZone](./DropZone.md)
- - [AdvancedDraggable](./AdvancedDraggable.md)
+ - [Draggable](./DragAndDrop/Draggable.md)
+ - [DropZone](./DragAndDrop/DropZone.md)
+ - [AdvancedDraggable](./DragAndDrop/AdvancedDraggable.md)

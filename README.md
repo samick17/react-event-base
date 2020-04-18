@@ -50,6 +50,7 @@ import { EventModel, ObjectManager, SortedObjectManager, IdGenerator } from 'rea
 ## Docs
 
  - [Components](./docs/Components.md)
+   - [BaseComponent](./docs/Components/BaseComponent.md)
  - [EventUtils](./docs/EventUtils.md)
  - [ObjectUtils](./docs/ObjectUtils.md)
  - [DOMUtils](./docs/DOMUtils.md)
@@ -58,7 +59,14 @@ import { EventModel, ObjectManager, SortedObjectManager, IdGenerator } from 'rea
  - [VK](./docs/VK.md)
  - [Mathf](./docs/Mathf.md)
  - [DragAndDrop](./docs/DragAndDrop.md)
+   - [Draggable](./docs/DragAndDrop/Draggable.md)
+   - [DropZone](./docs/DragAndDrop/DropZone.md)
+   - [AdvancedDraggable](./docs/DragAndDrop/AdvancedDraggable.md)
  - [Core](./docs/Core.md)
+ 	- [EventModel](./docs/Core/EventModel.md)
+ 	- [ObjectManager](./docs/Core/ObjectManager.md)
+ 	- [SortedObjectManager](./docs/Core/SortedObjectManager.md)
+ 	- [IdGenerator](./docs/Core/IdGenerator.md)
 
 ## License
 
