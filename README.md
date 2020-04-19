@@ -4,6 +4,10 @@
 
 [![NPM](https://img.shields.io/npm/v/reacted.svg)](https://www.npmjs.com/package/reacted) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+## Support the project
+
+<a href="https://www.buymeacoffee.com/samick" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/lato-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+
 ## Install
 
 ```bash
