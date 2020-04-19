@@ -1,1 +1,2 @@
-export * as PerfUtils from '../../utils/PerfUtils';
+import * as PerfUtils$ from '../../utils/PerfUtils';
+export default PerfUtils$;

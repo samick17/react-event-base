@@ -1,1 +1,2 @@
-export * as EventUtils from '../../utils/EventUtils';
+import * as EventUtils$ from '../../utils/EventUtils';
+export default EventUtils$;
