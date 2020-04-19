@@ -34,7 +34,8 @@
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build",
     "prepublishOnly": "cp -r ./dist/* . && rm -rf ./dist",
-    "postpublish": "git clean -fd"
+    "postpublish": "git clean -fd",
+    "gendoc": "node scripts/md-generator.js"
   },
   "peerDependencies": {
     "html2canvas": "^1.0.0-rc.5",

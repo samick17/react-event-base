@@ -208,7 +208,11 @@ const docDefs = {
 	ObjectUtils: {
 		src: '../src/utils/ObjectUtils.js',
 		dest: '../docs/ObjectUtils.md'
-	}
+	},
+	DOMUtils: {
+		src: '../src/utils/DOMUtils.js',
+		dest: '../docs/DOMUtils.md'
+	},
 };
 if(module.id === '.') {
 	for(let i in docDefs) {

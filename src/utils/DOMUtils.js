@@ -51,7 +51,7 @@ const DOMUtils = {
 			element.removeEventListener(name, callback);
 		};
 	},
-	htmlToImage: async (innerHtml, scale) => {
+	htmlToImage: async (innerHtml, scale=1) => {
 		const html2canvas = (await import('html2canvas')).default;
 		const element = DOMUtils.createElement(innerHtml);
 		Object.assign(element.style, {
@@ -110,22 +110,24 @@ const DOMUtils = {
 			img.src = image64;
 		});
 	},
-	scrollTo: async (element, {startTime, fromValue, toValue, animationTime}) => {
-		const scrollTo = () => {
+	scrollTo: async (element, {fromValue, toValue, animationTime, propertyName}) => {
+		propertyName = propertyName || 'scrollLeft';
+		const startTime = Date.now();
+		const _scrollTo = () => {
 			let deltaTime = Date.now() - startTime;
 			let t = deltaTime / animationTime;
 			let pos = lerp(fromValue, toValue, t);
-			element.scrollLeft = pos;
+			element[propertyName] = pos;
 			if(t < 1) {
 				window.requestAnimationFrame(() => {
 					if(t < 1) {
-						scrollTo();
+						_scrollTo();
 					}
 				});
 			}
 			return t;
 		};
-		scrollTo();
+		_scrollTo();
 	},
 	calculateSizeByAspect: (maxSize, aspect) => {
 		const width = maxSize.width;
@@ -143,11 +145,83 @@ const DOMUtils = {
 	}
 };
 
+/*
+ * @category: static function
+ * @description: Create element from string
+ * @name: createElement
+ * @param: {string} innerHtml - The dom string
+ * @returns: {Element} - The web element
+ * @example:
+ * const element = createElement(<div/>);
+ */
 export const createElement = DOMUtils.createElement;
+/*
+ * @category: static function
+ * @description: Create element from string
+ * @name: registerEvent
+ * @param: {Element} element - The target element
+ * @param: {string} name - The event type
+ * @param: {Function} callback - The handler function
+ * @returns: {Function} - The function which is used to unregister the event handler
+ * @example:
+ * const unregisterFn = registerEvent(body, 'click', (e) => {});
+ */
 export const registerEvent = DOMUtils.registerEvent;
+/*
+ * @category: static function
+ * @description: Create element from string
+ * @name: htmlToImage
+ * @param: {string} svgText - The target innerText of Element
+ * @param: {Number} scale - [optional] The scaling, default is 1
+ * @returns: {Object} - The ImageAdapter
+ * @example:
+ * const imageAdapter = htmlToImage(innerHtml, scale);
+ */
+ // svgText, options
 export const htmlToImage = DOMUtils.htmlToImage;
+/*
+ * @category: static function
+ * @description: Create element from string
+ * @name: svgToImage
+ * @param: {string} svgText - The svg xml text
+ * @param: {Object} options - [optional] {MaxWidth, MaxHeight}
+ * @returns: {Object} - The ImageAdapter
+ * @example:
+ * const imageAdapter = svgToImage(svgText, options);
+ */
 export const svgToImage = DOMUtils.svgToImage;
+/*
+ * @category: static function
+ * @description: Create element from string
+ * @name: scrollTo
+ * @param: {Element} element - The target element
+ * @param: {Object} name - {fromValue, toValue, animationTime, propertyName}
+ * @returns: No return value
+ * @example:
+ * const element = document.querySelector('.scroll');
+ * const fromValue = 0;
+ * const toValue = 800;
+ * const animationTime: 300;
+ * const propertyName = 'scrollLeft';
+ * scrollTo(element, {fromValue, toValue, animationTime, propertyName});
+ */
 export const scrollTo = DOMUtils.scrollTo;
+/*
+ * @category: static function
+ * @description: Create element from string
+ * @name: calculateSizeByAspect
+ * @param: {Object} maxSize - The maximum size of size
+ * @param: {Number} aspect - The aspect ratio
+ * @param: {Function} callback - The handler function
+ * @returns: {Function} - The function which is used to unregister the event handler
+ * @example:
+ * const maxSize = {
+ *   width: window.innerWidth,
+ *   height: window.innerHeight
+ * };
+ * const aspect = 16 / 9;
+ * const size = calculateSizeByAspect(maxSize, aspect);
+ */
 export const calculateSizeByAspect = DOMUtils.calculateSizeByAspect;
 
 export default DOMUtils;
