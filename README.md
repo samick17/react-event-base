@@ -40,13 +40,13 @@ import {
 
 ```js
 import { BaseComponent } from 'react-event-base/Components';
-import EventUtils from 'react-event-base/EventUtils';
-import ObjectUtils from 'react-event-base/ObjectUtils';
-import DOMUtils from 'react-event-base/DOMUtils';
-import IOUtils from 'react-event-base/IOUtils';
-import PerfUtils from 'react-event-base/PerfUtils';
-import VK from 'react-event-base/VK';
-import Mathf from 'react-event-base/Mathf';
+import { createEventTypes } from 'react-event-base/EventUtils';
+import { createObjectTypes } from 'react-event-base/ObjectUtils';
+import { calculateSizeByAspect } from 'react-event-base/DOMUtils';
+import { getMimeTypeByArrayBuffer } from 'react-event-base/IOUtils';
+import { debounce } from 'react-event-base/PerfUtils';
+import { registerKeyDownEventHandlers } from 'react-event-base/VK';
+import { clamp, lerp } from 'react-event-base/Mathf';
 import { Draggable, DropZone, AdvancedDraggable } from 'react-event-base/DragAndDrop';
 import { EventModel, ObjectManager, SortedObjectManager, IdGenerator } from 'react-event-base/Core';
 ```

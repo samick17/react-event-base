@@ -1,1 +1,2 @@
-export * as DOMUtils from '../../utils/DOMUtils';
+import * as DOMUtils$ from '../../utils/DOMUtils';
+export default DOMUtils$;

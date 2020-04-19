@@ -224,4 +224,4 @@ export const scrollTo = DOMUtils.scrollTo;
  */
 export const calculateSizeByAspect = DOMUtils.calculateSizeByAspect;
 
-export default DOMUtils;
+// export default DOMUtils;
