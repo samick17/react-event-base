@@ -114,12 +114,14 @@ export const forEachRange = (objects, callback) => {
  * });
  */
 export const forEach = (objects, callback) => {
-    objects = objects || [];
-    const length = objects.length;
-    if(length) {
-        for(let i = 0; i < length; i++) {
-            if(callback(objects[i], i, i)) {
-                break;
+    if(objects === null || typeof objects === 'undefined') return;
+    if(Array.isArray(objects) || (objects instanceof NodeList)) {
+        const length = objects.length;
+        if(length) {
+            for(let i = 0; i < length; i++) {
+                if(callback(objects[i], i, i)) {
+                    break;
+                }
             }
         }
     } else {
@@ -129,7 +131,7 @@ export const forEach = (objects, callback) => {
                 break;
             }
             index++;
-        }
+        }   
     }
 };
 /*
@@ -148,12 +150,14 @@ export const forEach = (objects, callback) => {
  * });
  */
 export const forEachAsync = async (objects, callback) => {
-    objects = objects || [];
-    const length = objects.length;
-    if(length) {
-        for(let i = 0; i < length; i++) {
-            if(await callback(objects[i], i, i)) {
-                break;
+    if(objects === null || typeof objects === 'undefined') return;
+    if(Array.isArray(objects) || (objects instanceof NodeList)) {
+        const length = objects.length;
+        if(length) {
+            for(let i = 0; i < length; i++) {
+                if(await callback(objects[i], i, i)) {
+                    break;
+                }
             }
         }
     } else {
@@ -297,20 +301,10 @@ export const clearKeys = (object) => {
  * });
  */
 export const map = (objects, callback) => {
-    objects = objects || [];
-    const length = objects.length;
-    let result = [];
-    if(length) {
-        for(let i = 0; i < length; i++) {
-            result.push(callback(objects[i], i, i));
-        }
-    } else {
-        let index = 0;
-        for(let key in objects) {
-            result.push(callback(objects[key], key, index));
-            index++;
-        }
-    }
+    const result = [];
+    forEach(objects, (value, key, index) => {
+        result.push(callback(value, key, index));
+    });
     return result;
 };
 /*
@@ -332,18 +326,11 @@ export const map = (objects, callback) => {
  * });
  */
 export const mapAsync = async (objects, callback) => {
-    objects = objects || [];
-    const length = objects.length;
-    let result = [];
-    if(length) {
-        for(let i = 0; i < length; i++) {
-            result.push(await callback(objects[i], i));
-        }
-    } else {
-        for(let i in objects) {
-            result.push(await callback(objects[i], i));
-        }
-    }
+    const result = [];
+    await forEachAsync(objects, async (value, key, index) => {
+        const newValue = await callback(value, key, index);
+        result.push(newValue);
+    });
     return result;
 };
 /*
@@ -365,20 +352,11 @@ export const mapAsync = async (objects, callback) => {
  * });
  */
 export const mapToObject = (objects, callback) => {
-    objects = objects || [];
-    const length = objects.length;
-    let result = {};
-    if(length) {
-        for(let i = 0; i < length; i++) {
-            let data = callback(objects[i], i);
-            result[data.key] = data.value;
-        }
-    } else {
-        for(let i in objects) {
-            let data = callback(objects[i], i);
-            result[data.key] = data.value;
-        }
-    }
+    const result = {};
+    forEach(objects, (value, key, index) => {
+        const newValue = callback(value, key, index);
+        result[newValue.key] = newValue.value;
+    });
     return result;
 };
 /*
