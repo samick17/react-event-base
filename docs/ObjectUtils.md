@@ -34,6 +34,7 @@
 | [toUpperCamel](#touppercamel) | Convert text to upper camel case |
 | [getCharacterLength](#getcharacterlength) | Calculate the length of character |
 | [getShortText](#getshorttext) | Replace text with '...' if too long |
+| [uuid](#uuid) | Generate uuid |
 
 ### **NOOP**
 
@@ -595,6 +596,20 @@ const lenOfSymbol = getCharacterLength('>');
 
 ```js
 const text = getShortText('n');
+```
+---
+
+### **uuid**
+
+| Parameters | Type | Description |
+|------------|------|-------------|
+
+| Return |
+|--------|
+| **string** The uuid |
+
+```js
+const id = uuid();
 ```
 ---
 
