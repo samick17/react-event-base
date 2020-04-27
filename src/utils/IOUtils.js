@@ -146,6 +146,9 @@ export const blobURLToDataURL = async (blobURL) => {
 	const blob = await blobURLToBlob(blobURL);
 	return await blobToDataURL(blob);
 };
+export const blobURLToArrayBuffer = async (blobURL) => {
+	return await fetch(blobURL).then(res => res.arrayBuffer());
+};
 export const blobToDataURL = async (blob) => {
 	return new Promise((resolve, reject) => {
 		const fr = new FileReader();
