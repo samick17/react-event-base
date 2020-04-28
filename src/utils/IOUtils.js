@@ -134,7 +134,7 @@ export const arrayBufferToBase64 = (buffer) => {
 	return window.btoa(binary);
 };
 export const arrayBufferToDataURL = (buffer, mimeType = 'image/png') => {
-	return `data:${mimeType};base64,` + arrayBufferToBase64({ buffer });
+	return `data:${mimeType};base64,` + arrayBufferToBase64(buffer);
 };
 export const arrayBufferToBlob = (arrayBuffer, mimeType = 'image/png') => {
 	return new Blob([arrayBuffer], { type: mimeType });
