@@ -84,8 +84,8 @@ export const dataURLtoBuffer = (dataURL) => {
 	}
 	return buffer;
 };
-export const bufferToFile = (buffer, fileName = 'thumbnail') => {
-	return new File([buffer], fileName)
+export const bufferToFile = (buffer, fileName = 'thumbnail', options) => {
+	return new File([buffer], fileName, options);
 };
 export const arrayBufferToDOM = (arrayBuffer) => {
 	const enc = new TextDecoder('utf-8');
