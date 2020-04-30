@@ -30,29 +30,35 @@ const Encodings = {
 	Legacy: 'StorageBinaryString',
 	Base64: 'Base64'
 };
-const _compressJson = async (data, LZUTF8, outputEncoding = Encodings.Legacy) => {
+const _compressJsonAsync = async (data, LZUTF8, outputEncoding = Encodings.Legacy) => {
 	return new Promise((resolve, reject) => {
 		try {
 			const dataText = JSON.stringify(data);
 			LZUTF8.compressAsync(dataText, {
 				outputEncoding: outputEncoding
-			}, (result, error) => {
+			}, function(result, error) {
 				if (error) reject(error);
 				else resolve(result);
-			})
+			});
 		} catch (err) {
 			reject(err);
 		}
 	});
 };
-function _compressJsonNew(data, LZUTF8) {
-	return _compressJson(data, LZUTF8, Encodings.Base64);
-}
-export const compressJson = async (data) => {
+export const compressJsonAsync = async (data) => {
 	const LZUTF8 = (await import('lzutf8')).default;
-	return await _compressJsonNew(data, LZUTF8);
+	return await _compressJsonAsync(data, LZUTF8, Encodings.Base64);
 };
-const _decompressJson = async (data, LZUTF8, inputEncoding = Encodings.Legacy) => {
+const _compressJson = (data, LZUTF8, outputEncoding = Encodings.Legacy) => {
+	const dataText = JSON.stringify(data);
+	return LZUTF8.compress(dataText, {
+		outputEncoding: outputEncoding
+	});
+};
+export const compressJson = (data, LZUTF8) => {
+	return _compressJson(data, LZUTF8, Encodings.Base64);
+};
+const _decompressJsonAsync = async (data, LZUTF8, inputEncoding = Encodings.Legacy) => {
 	return new Promise((resolve, reject) => {
 		LZUTF8.decompressAsync(data, {
 			inputEncoding: inputEncoding,
@@ -70,18 +76,26 @@ const _decompressJson = async (data, LZUTF8, inputEncoding = Encodings.Legacy) =
 		})
 	});
 };
-function _decompressJsonLegacy(data, LZUTF8) {
-	return _decompressJson(data, LZUTF8, Encodings.Legacy);
-}
-function _decompressJsonNew(data, LZUTF8) {
-	return _decompressJson(data, LZUTF8, Encodings.Base64);
-}
-export const decompressJson = async (data) => {
+export const decompressJsonAsync = async (data) => {
 	const LZUTF8 = (await import('lzutf8')).default;
 	try {
-		return await _decompressJsonLegacy(data, LZUTF8);
+		return await _decompressJsonAsync(data, LZUTF8, Encodings.Legacy);
 	} catch (err) {
-		return await _decompressJsonNew(data, LZUTF8);
+		return await _decompressJsonAsync(data, LZUTF8, Encodings.Base64);
+	}
+};
+const _decompressJson = (data, LZUTF8, inputEncoding = Encodings.Legacy) => {
+	const result = LZUTF8.decompress(data, {
+		inputEncoding: inputEncoding,
+		outputEncoding: 'String'
+	});
+	return JSON.parse(result);
+};
+export const decompressJson = (data, LZUTF8) => {
+	try {
+		return _decompressJson(data, LZUTF8, Encodings.Legacy);
+	} catch (err) {
+		return _decompressJson(data, LZUTF8, Encodings.Base64);
 	}
 };
 export const dataURLtoFile = (dataURL, fileName = 'thumbnail.png') => {
