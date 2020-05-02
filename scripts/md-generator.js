@@ -213,6 +213,10 @@ const docDefs = {
 		src: '../src/utils/DOMUtils.js',
 		dest: '../docs/DOMUtils.md'
 	},
+	VK: {
+		src: '../src/utils/VK.js',
+		dest: '../docs/VK.md'
+	},
 };
 if(module.id === '.') {
 	for(let i in docDefs) {
