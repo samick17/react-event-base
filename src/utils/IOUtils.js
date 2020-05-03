@@ -258,6 +258,15 @@ export const openFiles = async (exts) => {
 		a.click();
 	});
 };
+export const saveFile = (name, blob) => {
+	const a = document.createElement('a');
+	a.style.display = 'none';
+	const url = URL.createObjectURL(blob);
+	a.href = url;
+	a.download = name;
+	a.click();
+	URL.revokeObjectURL(url);
+};
 export const loadImage = async (url) => {
 	const image = new Image();
 	return new Promise((resolve, reject) => {
