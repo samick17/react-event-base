@@ -87,14 +87,16 @@ export const createDraggable = (elem, {onStart, onDrag, onEnd}={}) => {
       mouseData.isStart = false;
     };
     const onMouseDown = (evt) => {
-      const dragId = 'm';
-      stopEventChain(evt);
-      mouseData.mdPos = getMousePosition(evt);
-      handleStartEvent(dragId, mouseData);
-      jElem.on('mousemove', mouseMoveHandler);
-      globalMoveEvents.push(mouseMoveHandler);
-      jElem.on('mouseup', mouseEndHandler);
-      $(window).on('mouseup', mouseEndHandler);
+      if(evt.button === 0) {
+        const dragId = 'm';
+        stopEventChain(evt);
+        mouseData.mdPos = getMousePosition(evt);
+        handleStartEvent(dragId, mouseData);
+        jElem.on('mousemove', mouseMoveHandler);
+        globalMoveEvents.push(mouseMoveHandler);
+        jElem.on('mouseup', mouseEndHandler);
+        $(window).on('mouseup', mouseEndHandler);
+      }
     };
     jElem.on('mousedown', onMouseDown);
     const touchIdsMap = {};
