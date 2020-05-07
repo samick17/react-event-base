@@ -1,5 +1,10 @@
 # **[ObjectUtils](../README.md)**
 
+## **Static Properties**
+
+| Name | Description |
+|------|-------------|
+
 ## **Methods**
 
 | Name | Description |
