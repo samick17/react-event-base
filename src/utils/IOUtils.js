@@ -159,6 +159,8 @@ export const getMimeTypeByArrayBuffer = (arrayBuffer) => {
 			return 'image/webp';
 		case '3c737667':
 			return 'image/svg+xml';
+		case '0010':
+			return 'image/x-icon';
 		default:
 			return;
 	}
