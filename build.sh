@@ -8,3 +8,4 @@ npm run build:component
 npm run build:core
 npm run build:dnd
 npm run build:utils
+npm run build:mathf
