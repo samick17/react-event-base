@@ -548,6 +548,9 @@ export const cloneDeep = (object) => {
     const cloneValue = (value) => {
         const typeOfVal = typeof value;
         switch(typeOfVal) {
+            case 'undefined':
+                // do nothing
+            break;
             case 'string':
             case 'number':
             case 'boolean':
