@@ -699,6 +699,21 @@ export function format(text) {
 };
 /*
  * @category: static function
+ * @description: formatData
+ * @name: formatData
+ * @param: {string} text - The string template
+ * @param: {Object} data - The text data
+ * @returns: {string} - The formatted string
+ * @example:
+ * const str = format('ObjectID: ${id}, Name: ${name}', {id: '123-222', name: 'Example'})
+ */
+ export function formatData(text, data) {
+    return text.replace(/\${(.*?)}/, (_, key) => {
+        return data[key] || '';
+    });
+ };
+/*
+ * @category: static function
  * @description: Convert text to upper camel case
  * @name: toUpperCamel
  * @param: {string} text - The text

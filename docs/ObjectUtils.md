@@ -36,6 +36,7 @@
 | [diffTwoObjects](#difftwoobjects) | Diff two objects and return diff data |
 | [createKeyActionHandler](#createkeyactionhandler) | Create the handler by map |
 | [format](#format) | format |
+| [formatData](#formatdata) | formatData |
 | [toUpperCamel](#touppercamel) | Convert text to upper camel case |
 | [getCharacterLength](#getcharacterlength) | Calculate the length of character |
 | [getShortText](#getshorttext) | Replace text with '...' if too long |
@@ -554,6 +555,22 @@ actionHandler
 
 ```js
 const str = format('{0}: {1}', 'id', '123-222');
+```
+---
+
+### **formatData**
+
+| Parameters | Type | Description |
+|------------|------|-------------|
+| text | string | The string template |
+| data | Object | The text data |
+
+| Return |
+|--------|
+| **string** The formatted string |
+
+```js
+const str = format('ObjectID: ${id}, Name: ${name}', {id: '123-222', name: 'Example'})
 ```
 ---
 
