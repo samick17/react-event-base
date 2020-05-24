@@ -708,7 +708,7 @@ export function format(text) {
  * const str = format('ObjectID: ${id}, Name: ${name}', {id: '123-222', name: 'Example'})
  */
  export function formatData(text, data) {
-    return text.replace(/\${(.*?)}/, (_, key) => {
+    return text.replace(/\${(.*?)}/g, (_, key) => {
         return data[key] || '';
     });
  };
