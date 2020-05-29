@@ -102,19 +102,19 @@ export const registerElementEvents = (elem, events) => {
     }
     const handleClick = () => {
         if(!isHandled) {
-            events.onClick();
+            events.onClick && events.onClick();
         }
         isHandled = true;
     };
     const handleDoubleClick = () => {
         if(!isHandled) {
-            events.onDoubleClick.handler();
+            events.onDoubleClick && events.onDoubleClick.handler();
         }
         isHandled = true;
     };
     const handleLongClick = () => {
         if(!isHandled && isMouseEntered) {
-            events.onLongClick.handler();
+            events.onLongClick && events.onLongClick.handler();
         }
         isHandled = true;
     };
