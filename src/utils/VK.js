@@ -12,6 +12,7 @@ export const ArrowRight = 39;
  * @description: Register KeyDown Event Handlers for window
  * @name: registerKeyDownEventHandlers
  * @param: {Array} handlers - The event handlers
+ * @param: {bool} logKey - True will print key if there is no matched handler
  * @returns: The function which is used to unregister the event handler
  * @example:
  * registerKeyDownEventHandlers([
@@ -29,7 +30,7 @@ export const ArrowRight = 39;
  * }
  * ]);
  */
-export const registerKeyDownEventHandlers = (handlers) => {
+export const registerKeyDownEventHandlers = (handlers, logKey=false) => {
 	const keyEventHandlers = {};
 	forEach(handlers, (def) => {
 		const key = def.keys.sort().join(',').toLowerCase();
@@ -57,6 +58,8 @@ export const registerKeyDownEventHandlers = (handlers) => {
 			e.stopPropagation();
 			e.preventDefault();
 			handler();
+		} else if(logKey) {
+			console.log(key);
 		}
 	});
 };
