@@ -1,16 +1,18 @@
 class IdGenerator {
 
-    serialNumber = 0
-    idPrefix = 'o'
+    constructor(prefix) {
+        this.serialNumber = 0;
+        this.prefix = typeof prefix === 'string' ? prefix : 'o';
+    }
 
-    setIdPrefix(idPrefix) {
-        this.idPrefix = idPrefix;
+    setIdPrefix(prefix) {
+        this.prefix = prefix;
     }
 
     genId() {
         let newId = this.serialNumber;
         this.serialNumber++;
-        return this.idPrefix + newId.toString(16);
+        return this.prefix + newId.toString(16);
     }
 
 }

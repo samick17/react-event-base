@@ -16,6 +16,7 @@
 | Parameters | Type | Description |
 |------------|------|-------------|
 | handlers | Array | The event handlers |
+| logKey | bool | True will print key if there is no matched handler |
 
 | Return |
 |--------|
