@@ -83,7 +83,7 @@ export const registerEvent = (element, name, callback) => {
  * const imageAdapter = htmlToImage(innerHtml, scale);
  */
  // svgText, options
-export const = htmlToImage = async (innerHtml, scale=1) => {
+export const htmlToImage = async (innerHtml, scale=1) => {
 	const html2canvas = (await import('html2canvas')).default;
 	const element = createElement(innerHtml);
 	Object.assign(element.style, {
