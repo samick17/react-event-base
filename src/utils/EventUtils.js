@@ -100,9 +100,9 @@ export const registerElementEvents = (elem, events) => {
             delete activeTimers[id];
         }
     }
-    const handleClick = () => {
+    const handleClick = (event) => {
         if(!isHandled) {
-            events.onClick && events.onClick();
+            events.onClick && events.onClick(event);
         }
         isHandled = true;
     };
@@ -160,18 +160,18 @@ export const registerElementEvents = (elem, events) => {
                 lastDownTimestamp = Date.now();
             }
         },
-        onUp: ({position}={}) => {
+        onUp: ({position, event}={}) => {
             if(isPositionInThreshold(clickContext.startPos, position)) {
-                handleClick();
+                handleClick(event);
             }
         }
     } : {
         onDown: ({position}={}) => {
             clickContext.startPos = position;
         },
-        onUp: ({position}={}) => {
+        onUp: ({position, event}={}) => {
             if(isPositionInThreshold(clickContext.startPos, position)) {
-                handleClick();
+                handleClick(event);
             }
         }
     };
@@ -197,6 +197,7 @@ export const registerElementEvents = (elem, events) => {
         longClickHandlers.onDown();
         clickHandlers.onDown({
             position: getMousePosition(event),
+            event,
         });
         jElem.on('mouseup', onMouseUpHandler);
         jElem.on('mouseout', onMouseOutHandler);
@@ -204,12 +205,12 @@ export const registerElementEvents = (elem, events) => {
         return true;
     };
     const onTouchStartHandler = event => {
-        stopEventChain(event);
         if(containsTimer('m')) return;
         isHandled = false;
         longClickHandlers.onDown();
         clickHandlers.onDown({
             position: getTouchPosition(event.changedTouches[event.changedTouches.length - 1]),
+            event,
         });
         jElem.on('touchend', onTouchEndHandler);
         return true;
@@ -222,17 +223,18 @@ export const registerElementEvents = (elem, events) => {
         jElem.off('mouseenter', onMouseEnterHandler);
         longClickHandlers.onUp();
         clickHandlers.onUp({
-            position: getTouchPosition(event.changedTouches[event.changedTouches.length - 1]),
+            position: getMousePosition(event),
+            event,
         });
         startActiveTimer('m');
         return true;
     };
     const onTouchEndHandler = event => {
-        stopEventChain(event);
         jElem.off('touchend', onTouchEndHandler);
         longClickHandlers.onUp();
         clickHandlers.onUp({
-            position: getTouchPosition(event),
+            position: getTouchPosition(event.changedTouches[event.changedTouches.length - 1]),
+            event,
         });
         startActiveTimer('t');
         return true;
