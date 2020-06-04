@@ -209,7 +209,7 @@ export const registerElementEvents = (elem, events) => {
         isHandled = false;
         longClickHandlers.onDown();
         clickHandlers.onDown({
-            position: getTouchPosition(event),
+            position: getTouchPosition(event.changedTouches[event.changedTouches.length - 1]),
         });
         jElem.on('touchend', onTouchEndHandler);
         return true;
@@ -222,7 +222,7 @@ export const registerElementEvents = (elem, events) => {
         jElem.off('mouseenter', onMouseEnterHandler);
         longClickHandlers.onUp();
         clickHandlers.onUp({
-            position: getMousePosition(event),
+            position: getTouchPosition(event.changedTouches[event.changedTouches.length - 1]),
         });
         startActiveTimer('m');
         return true;
