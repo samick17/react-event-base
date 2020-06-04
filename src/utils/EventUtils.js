@@ -59,10 +59,14 @@ export const registerEvents = (elem, events) => {
  * @returns: No return value
  */
 export const stopEventChain = (event) => {
-    if(event.defaultPrevented) {
-        event.preventDefault();
+    try {
+        if(event.defaultPrevented) {
+            event.preventDefault();
+        }
+        event.stopPropagation();
+    } catch(err) {
+        
     }
-    event.stopPropagation();
 };
 /*
  * @category: static function
@@ -102,6 +106,7 @@ export const registerElementEvents = (elem, events) => {
     }
     const handleClick = (event) => {
         if(!isHandled) {
+            stopEventChain(event);
             events.onClick && events.onClick(event);
         }
         isHandled = true;
