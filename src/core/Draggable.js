@@ -56,10 +56,13 @@ export const createDraggable = (elem, {onStart, onDrag, onEnd}={}) => {
   const dragContextMap = {};
   const createDragContext = createDragContextWith(dragContextMap);
   const registerDragEvent = (elem, options) => {
-    const handleStartEvent = (dragId, touchData) => {
+    const handleStartEvent = (dragId, touchData, touchParams) => {
       if(!touchData.isStart) {
         touchData.isStart = true;
         const dragContext = createDragContext(dragId);
+        if(touchParams) {
+          Object.assign(dragContext, touchParams);
+        }
         onStartHandler(touchData.mdPos, dragContext);
       }
     }
@@ -112,9 +115,12 @@ export const createDraggable = (elem, {onStart, onDrag, onEnd}={}) => {
         const dragId = touch.identifier;
         const touchData = touchIdsMap[dragId];
         if(touchData) {
-          handleStartEvent(dragId, touchData);
+          handleStartEvent(dragId, touchData, {
+            force: touch.force,
+          });
           const position = getTouchPosition(touch);
           touchData.lastPos = position;
+          dragContextMap[dragId].force = touch.force;
           onDragHandler(position, dragContextMap[dragId]);
         }
       });
@@ -125,8 +131,11 @@ export const createDraggable = (elem, {onStart, onDrag, onEnd}={}) => {
         const dragId = touch.identifier;
         const touchData = touchIdsMap[dragId];
         if(touchData) {
-          handleStartEvent(dragId, touchData);
+          handleStartEvent(dragId, touchData, {
+            force: touch.force,
+          });
           const position = getTouchPosition(touch);
+          dragContextMap[dragId].force = touch.force;
           onEndHandler(position, dragContextMap[dragId]);
           destroyDragContext(dragId);
           if(evt.touches.length === 0) {
@@ -146,7 +155,9 @@ export const createDraggable = (elem, {onStart, onDrag, onEnd}={}) => {
           mdPos: mdPos,
           isStart: false
         };
-        handleStartEvent(dragId, touchData);
+        handleStartEvent(dragId, touchData, {
+          force: touch.force,
+        });
       });
       jElem.on('touchmove', touchMoveHandler);
       jElem.on('touchend', touchEndHandler);
