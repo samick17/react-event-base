@@ -130,8 +130,29 @@ export const registerElementEvents = (elem, events) => {
             clearDownTimer();
         }
     } : EmptyHandlers;
+    const getMousePosition = (evt) => {
+        return {
+            x: evt.clientX,
+            y: evt.clientY,
+            screenX: evt.screenX,
+            screenY: evt.screenY
+        };
+    };
+    const getTouchPosition = (touchObject) => {
+        return {
+            x: touchObject.clientX,
+            y: touchObject.clientY,
+            screenX: touchObject.screenX,
+            screenY: touchObject.screenY
+        };
+    };
+    const clickContext = {};
+    const isPositionInThreshold = (pos1, pos2) => {
+        return Math.abs(pos1.x - pos2.x) < 10 &&  Math.abs(pos1.y - pos2.y) < 10;
+    };
     const clickHandlers = events.onDoubleClick ? {
-        onDown: () => {
+        onDown: ({position}={}) => {
+            clickContext.startPos = position;
             if(lastDownTimestamp && Date.now() - lastDownTimestamp <= events.onDoubleClick.threshold) {
                 handleDoubleClick();
                 lastDownTimestamp = undefined;
@@ -139,13 +160,19 @@ export const registerElementEvents = (elem, events) => {
                 lastDownTimestamp = Date.now();
             }
         },
-        onUp: () => {
-            handleClick();
+        onUp: ({position}={}) => {
+            if(isPositionInThreshold(clickContext.startPos, position)) {
+                handleClick();
+            }
         }
     } : {
-        onDown: Noop,
-        onUp: () => {
-            handleClick();
+        onDown: ({position}={}) => {
+            clickContext.startPos = position;
+        },
+        onUp: ({position}={}) => {
+            if(isPositionInThreshold(clickContext.startPos, position)) {
+                handleClick();
+            }
         }
     };
     const clearDownTimer = () => {
@@ -168,7 +195,9 @@ export const registerElementEvents = (elem, events) => {
         isHandled = false;
         isMouseEntered = true;
         longClickHandlers.onDown();
-        clickHandlers.onDown();
+        clickHandlers.onDown({
+            position: getMousePosition(event),
+        });
         jElem.on('mouseup', onMouseUpHandler);
         jElem.on('mouseout', onMouseOutHandler);
         jElem.on('mouseenter', onMouseEnterHandler);
@@ -179,7 +208,9 @@ export const registerElementEvents = (elem, events) => {
         if(containsTimer('m')) return;
         isHandled = false;
         longClickHandlers.onDown();
-        clickHandlers.onDown();
+        clickHandlers.onDown({
+            position: getTouchPosition(event),
+        });
         jElem.on('touchend', onTouchEndHandler);
         return true;
     };
@@ -190,7 +221,9 @@ export const registerElementEvents = (elem, events) => {
         jElem.off('mouseout', onMouseOutHandler);
         jElem.off('mouseenter', onMouseEnterHandler);
         longClickHandlers.onUp();
-        clickHandlers.onUp();
+        clickHandlers.onUp({
+            position: getMousePosition(event),
+        });
         startActiveTimer('m');
         return true;
     };
@@ -198,7 +231,9 @@ export const registerElementEvents = (elem, events) => {
         stopEventChain(event);
         jElem.off('touchend', onTouchEndHandler);
         longClickHandlers.onUp();
-        clickHandlers.onUp();
+        clickHandlers.onUp({
+            position: getTouchPosition(event),
+        });
         startActiveTimer('t');
         return true;
     };
