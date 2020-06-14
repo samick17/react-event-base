@@ -1,7 +1,7 @@
 class NameGenerator {
 
     constructor(prefix) {
-        this.serialNumber = 0;
+        this.serialNumber = 1;
         this.prefix = typeof prefix === 'string' ? prefix : 'Name';
     }
 
@@ -9,13 +9,14 @@ class NameGenerator {
         this.prefix = prefix;
     }
 
-    genId() {
+    genName() {
         const {
             serialNumber,
             prefix,
         } = this;
+        const newName = `${prefix}${serialNumber}`;
         this.serialNumber++;
-        return `${prefix}${serialNumber}`;
+        return newName;
     }
 
 }
