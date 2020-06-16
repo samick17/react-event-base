@@ -186,13 +186,15 @@ export const getMD5FromArrayBuffer = async (arrayBuffer) => {
 	return md5(arrayBuffer);
 };
 export const getMD5FromBlob = async (blob) => {
-	return await getMD5FromArrayBuffer(await blob.arrayBuffer());
+	const arrayBuffer = await new Response(blob).arrayBuffer();
+	return await getMD5FromArrayBuffer(arrayBuffer);
 };
 export const getMD5FromBlobURL = async (blobURL) => {
 	return await getMD5FromBlob(await blobURLToBlob(blobURL));
 };
 export const getMD5FromFile = async (file) => {
-	return await getMD5FromArrayBuffer(await file.arrayBuffer());
+	const arrayBuffer = await new Response(file).arrayBuffer();
+	return await getMD5FromArrayBuffer(arrayBuffer);
 };
 /* End of MD5 functions */
 export const fileAsBlobURL = async (file) => {
