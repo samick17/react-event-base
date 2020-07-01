@@ -1,13 +1,14 @@
 export const debounce = (fn, timeout) => {
 	let timerId;
-	return () => {
+	return function() {
+		const args = arguments;
 		if(timerId) {
 			window.clearTimeout(timerId);
 			timerId = undefined;
 		}
 		timerId = setTimeout(() => {
 			timerId = undefined;
-			fn();
+			fn.apply(null, args);
 		}, timeout);
 	};
 };
