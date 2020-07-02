@@ -72,9 +72,9 @@ export const decompressJson = (data) => {
 };
 export const decompressJsonAsync = (data) => {
 	try {
-		return _decompressJson(data, LZUTF8, Encodings.Legacy);
+		return _decompressJsonAsync(data, LZUTF8, Encodings.Legacy);
 	} catch (err) {
-		return _decompressJson(data, LZUTF8, Encodings.Base64);
+		return _decompressJsonAsync(data, LZUTF8, Encodings.Base64);
 	}
 };
 export const dataURLtoFile = (dataURL, fileName = 'thumbnail.png') => {
