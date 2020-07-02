@@ -1,6 +1,7 @@
 import {
 	createElement
 } from './DOMUtils';
+import LZUTF8 from 'lzutf8';
 
 export const encodeToPng = (arrayBuffer) => {
 	const input = new Uint8Array(arrayBuffer);
@@ -36,8 +37,7 @@ const _compressJson = (data, LZUTF8, outputEncoding = Encodings.Legacy) => {
 		outputEncoding: outputEncoding
 	});
 };
-export const compressJson = async (data) => {
-	const LZUTF8 = (await import('lzutf8')).default;
+export const compressJson = (data) => {
 	return _compressJson(data, LZUTF8, Encodings.Base64);
 };
 const _decompressJson = (data, LZUTF8, inputEncoding = Encodings.Legacy) => {
@@ -48,7 +48,6 @@ const _decompressJson = (data, LZUTF8, inputEncoding = Encodings.Legacy) => {
 	return JSON.parse(result);
 };
 export const decompressJson = async (data) => {
-	const LZUTF8 = (await import('lzutf8')).default;
 	try {
 		return _decompressJson(data, LZUTF8, Encodings.Legacy);
 	} catch (err) {
