@@ -12,10 +12,11 @@ import { $ } from '../core/CustomElement';
  *   'RemoveObject',
  * ]);
  */
-export const createEventTypes = (eventNames, prefix='') => {
+export const createEventTypes = (eventNames, prefix) => {
+    prefix = prefix || '';
     return eventNames.reduce((m, i, j) => {
-        m[i] = j.toString(16);
-        return prefix + m;
+        m[i] = prefix + j.toString(16);
+        return m;
     }, {});
 };
 /*
