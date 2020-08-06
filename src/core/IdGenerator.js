@@ -15,6 +15,10 @@ class IdGenerator {
         return this.prefix + newId.toString(16);
     }
 
+    reset() {
+        this.serialNumber = 0;
+    }
+
 }
 
 export default IdGenerator;
