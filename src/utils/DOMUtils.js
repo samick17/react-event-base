@@ -75,6 +75,29 @@ export const registerEvent = (element, name, callback) => {
 /*
  * @category: static function
  * @description: Create element from string
+ * @name: registerEvents
+ * @param: {Element} element - The target element
+ * @param: {Object} nameCallbacksMap - The name/callback object
+ * @example:
+ * const unregisterFn = registerEvents(body, {click: (e) => {}});
+ */
+export const registerEvents = (element, nameCallbacksMap) => {
+	const unbindFns = [];
+	for(let name in nameCallbacksMap) {
+		let callback = nameCallbacksMap[name];
+		unbindFns.push(registerEvent(element, name, callback));
+	}
+	return () => {
+		for(let i = 0; i < unbindFns.length; i++) {
+			let fn = unbindFns[i];
+			fn();
+		}
+	};
+};
+
+/*
+ * @category: static function
+ * @description: Create element from string
  * @name: htmlToImage
  * @param: {string} svgText - The target innerText of Element
  * @param: {Number} scale - [optional] The scaling, default is 1
@@ -247,5 +270,26 @@ export const registerContextMenuEvents = (callback) => {
 	callback = callback || (() => {});
 	return registerEvent(document.body, 'contextmenu', e => {
 		callback(e);
+	});
+};
+
+export const registerDragDropEvents = (elem, {onEnter, onLeave, onDrop}={}) => {
+	onEnter = onEnter || (() => {});
+	onLeave = onLeave || (() => {});
+	onDrop = onDrop || (() => {});
+	return registerEvents(elem, {
+		dragenter: (e) => {
+			onEnter(e);
+		},
+		dragleave: (e) => {
+			onLeave(e);
+		},
+		drop: (e) => {
+			e.preventDefault();
+			onDrop(e);
+		},
+		dragover: (e) => {
+			e.preventDefault();
+		},
 	});
 };
