@@ -175,13 +175,15 @@ export const svgToImage = (svgText, options) => {
 	// 
 	const reViewBox = /<svg.*viewBox="(.*)".*>/;
 	const reViewBoxResult = reViewBox.exec(svgText);
-	if(reViewBoxResult[0].indexOf('width') < 0 || reViewBoxResult[0].indexOf('height') < 0) {
-		const viewBox = reViewBoxResult[1].split(' ').map(value => parseInt(value));
-		const viewBoxWidth = viewBox[2];
-		const viewBoxHeight = viewBox[3];
-		svgText = svgText.replace(/<(svg.*viewBox=".*".*)>/, (_, i) => {
-			return `<${i} width="${viewBoxWidth}px" height="${viewBoxHeight}px">`;
-		});
+	if(reViewBoxResult) {
+		if(reViewBoxResult[0].indexOf('width') < 0 || reViewBoxResult[0].indexOf('height') < 0) {
+			const viewBox = reViewBoxResult[1].split(' ').map(value => parseInt(value));
+			const viewBoxWidth = viewBox[2];
+			const viewBoxHeight = viewBox[3];
+			svgText = svgText.replace(/<(svg.*viewBox=".*".*)>/, (_, i) => {
+				return `<${i} width="${viewBoxWidth}px" height="${viewBoxHeight}px">`;
+			});
+		}
 	}
 	//
 	const svg64 = window.btoa(svgText);
