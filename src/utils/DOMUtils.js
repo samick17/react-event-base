@@ -173,14 +173,14 @@ export const svgToImage = (svgText, options) => {
 	const canvas = document.createElement('canvas');
 	const ctx = canvas.getContext('2d');
 	// 
-	const reViewBox = /<svg.*viewBox="(.*)".*>/;
+	const reViewBox = /<svg.*viewBox="(.*?)".*?>/;
 	const reViewBoxResult = reViewBox.exec(svgText);
 	if(reViewBoxResult) {
 		if(reViewBoxResult[0].indexOf('width') < 0 || reViewBoxResult[0].indexOf('height') < 0) {
 			const viewBox = reViewBoxResult[1].split(' ').map(value => parseInt(value));
 			const viewBoxWidth = viewBox[2];
 			const viewBoxHeight = viewBox[3];
-			svgText = svgText.replace(/<(svg.*viewBox=".*".*)>/, (_, i) => {
+			svgText = svgText.replace(/<(svg.*viewBox=".*?".*?)>/, (_, i) => {
 				return `<${i} width="${viewBoxWidth}px" height="${viewBoxHeight}px">`;
 			});
 		}
