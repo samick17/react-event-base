@@ -273,10 +273,13 @@ export const openFile = async (exts) => {
 		a.click();
 	});
 };
-export const openFiles = async (exts) => {
+export const openFiles = async (exts, isWebkitDirectory) => {
 	const ext = (exts || []).join(',');
 	return new Promise((resolve, reject) => {
 		const a = createElement(`<input type="file" accept="${ext}" multiple/>`);
+		if(isWebkitDirectory) {
+			a.setAttribute('webkitdirectory', '');
+		}
 		a.addEventListener('change', (e) => {
 			const files = e.target.files;
 			resolve(files);			
