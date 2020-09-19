@@ -2,6 +2,9 @@ import { registerEvent } from './DOMUtils';
 import { forEach } from './ObjectUtils';
 
 export const Tab = 9;
+export const Enter = 13;
+export const Escape = 27;
+export const Space = 32;
 export const ArrowUp = 38;
 export const ArrowDown = 40;
 export const ArrowLeft = 37;

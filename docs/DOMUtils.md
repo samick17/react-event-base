@@ -10,11 +10,11 @@
 | Name | Description |
 |------|-------------|
 | [createElement](#createelement) | Create element from string |
-| [registerEvent](#registerevent) | Create element from string |
-| [htmlToImage](#htmltoimage) | Create element from string |
+| [registerEvent](#registerevent) | Register element event |
+| [registerEvent](#registerevent) | Register element event |
+| [calculateSizeByAspect](#calculatesizebyaspect) | Create element from string |
 | [svgToImage](#svgtoimage) | Create element from string |
 | [scrollTo](#scrollto) | Create element from string |
-| [calculateSizeByAspect](#calculatesizebyaspect) | Create element from string |
 
 ### **createElement**
 
@@ -36,8 +36,8 @@ const element = createElement(<div/>);
 | Parameters | Type | Description |
 |------------|------|-------------|
 | element | Element | The target element |
-| name | string | The event type |
-| callback | Function | The handler function |
+| element | string | The event type |
+| element | Function | The handler function |
 
 | Return |
 |--------|
@@ -48,19 +48,41 @@ const unregisterFn = registerEvent(body, 'click', (e) => {});
 ```
 ---
 
-### **htmlToImage**
+### **registerEvent**
 
 | Parameters | Type | Description |
 |------------|------|-------------|
-| svgText | string | The target innerText of Element |
-| scale | Number | [optional] The scaling, default is 1 |
+| element | Element | The target element |
+| element | Object | The event/handler object |
 
 | Return |
 |--------|
-| **Object** The ImageAdapter |
+| **Function** The function which is used to unregister the event handler |
 
 ```js
-const imageAdapter = htmlToImage(innerHtml, scale);
+const unregisterFn = registerEvents(body, { 'click', (e) => {} });
+```
+---
+
+### **calculateSizeByAspect**
+
+| Parameters | Type | Description |
+|------------|------|-------------|
+| maxSize | Object | The maximum size of size |
+| aspect | Number | The aspect ratio |
+| callback | Function | The handler function |
+
+| Return |
+|--------|
+| **Function** The function which is used to unregister the event handler |
+
+```js
+const maxSize = {
+  width: window.innerWidth,
+  height: window.innerHeight
+};
+const aspect = 16 / 9;
+const size = calculateSizeByAspect(maxSize, aspect);
 ```
 ---
 
@@ -98,28 +120,6 @@ const toValue = 800;
 const animationTime: 300;
 const propertyName = 'scrollLeft';
 scrollTo(element, {fromValue, toValue, animationTime, propertyName});
-```
----
-
-### **calculateSizeByAspect**
-
-| Parameters | Type | Description |
-|------------|------|-------------|
-| maxSize | Object | The maximum size of size |
-| aspect | Number | The aspect ratio |
-| callback | Function | The handler function |
-
-| Return |
-|--------|
-| **Function** The function which is used to unregister the event handler |
-
-```js
-const maxSize = {
-  width: window.innerWidth,
-  height: window.innerHeight
-};
-const aspect = 16 / 9;
-const size = calculateSizeByAspect(maxSize, aspect);
 ```
 ---
 

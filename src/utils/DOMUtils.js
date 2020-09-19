@@ -56,11 +56,11 @@ export const createElement = (innerHtml) => {
 
 /*
  * @category: static function
- * @description: Create element from string
+ * @description: Register element event
  * @name: registerEvent
  * @param: {Element} element - The target element
- * @param: {string} name - The event type
- * @param: {Function} callback - The handler function
+ * @param: {string} element - The event type
+ * @param: {Function} element - The handler function
  * @returns: {Function} - The function which is used to unregister the event handler
  * @example:
  * const unregisterFn = registerEvent(body, 'click', (e) => {});
@@ -74,12 +74,13 @@ export const registerEvent = (element, name, callback) => {
 
 /*
  * @category: static function
- * @description: Create element from string
- * @name: registerEvents
+ * @description: Register element event
+ * @name: registerEvent
  * @param: {Element} element - The target element
- * @param: {Object} nameCallbacksMap - The name/callback object
+ * @param: {Object} element - The event/handler object
+ * @returns: {Function} - The function which is used to unregister the event handler
  * @example:
- * const unregisterFn = registerEvents(body, {click: (e) => {}});
+ * const unregisterFn = registerEvents(body, { 'click', (e) => {} });
  */
 export const registerEvents = (element, nameCallbacksMap) => {
 	const unbindFns = [];
@@ -93,36 +94,6 @@ export const registerEvents = (element, nameCallbacksMap) => {
 			fn();
 		}
 	};
-};
-
-/*
- * @category: static function
- * @description: Create element from string
- * @name: htmlToImage
- * @param: {string} svgText - The target innerText of Element
- * @param: {Number} scale - [optional] The scaling, default is 1
- * @returns: {Object} - The ImageAdapter
- * @example:
- * const imageAdapter = htmlToImage(innerHtml, scale);
- */
- // svgText, options
-export const htmlToImage = async (innerHtml, scale=1) => {
-	const html2canvas = (await import('html2canvas')).default;
-	const element = createElement(innerHtml);
-	Object.assign(element.style, {
-		position: 'absolute',
-		'z-index': -1000,
-		left: '-999999px',
-		top: '-999999px'
-	});
-	document.body.append(element);
-	const canvas = await html2canvas(element, {
-		backgroundColor: null,
-		scale,
-		logging: false
-	});
-	element.remove();
-	return createImageAdapter(canvas);
 };
 
 /*

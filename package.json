@@ -1,6 +1,6 @@
 {
   "name": "react-event-base",
-  "version": "1.1.35",
+  "version": "1.1.36",
   "description": "React event-driven library",
   "author": "samick17",
   "license": "MIT",
@@ -27,7 +27,7 @@
     "build:component": "rollup -c rollup-configs/Components.rollup.config.js",
     "build:core": "rollup -c rollup-configs/Core.rollup.config.js",
     "build:dnd": "rollup -c rollup-configs/DragAndDrop.rollup.config.js",
-    "build:utils": "rollup -c rollup-configs/DOMUtils.rollup.config.js --exports default && rollup -c rollup-configs/EventUtils.rollup.config.js --exports default && rollup -c rollup-configs/IOUtils.rollup.config.js --exports default && rollup -c rollup-configs/ObjectUtils.rollup.config.js --exports default && rollup -c rollup-configs/PerfUtils.rollup.config.js --exports default && rollup -c rollup-configs/VK.rollup.config.js --exports default",
+    "build:utils": "rollup -c rollup-configs/DOMUtils.rollup.config.js --exports default && rollup -c rollup-configs/EventUtils.rollup.config.js --exports default && rollup -c rollup-configs/IOUtils.rollup.config.js --exports default && rollup -c rollup-configs/ObjectUtils.rollup.config.js --exports default && rollup -c rollup-configs/PerfUtils.rollup.config.js --exports default && rollup -c rollup-configs/VK.rollup.config.js --exports default && rollup -c rollup-configs/ImageUtils.rollup.config.js --exports default && rollup -c rollup-configs/FileUtils.rollup.config.js --exports default",
     "build:mathf": "rollup -c rollup-configs/Mathf.rollup.config.js --exports default",
     "prepare": "yarn run build",
     "predeploy": "cd example && yarn install && yarn run build",
