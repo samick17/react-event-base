@@ -18,7 +18,7 @@ export const openFiles = async (exts, isWebkitDirectory) => {
 		}
 		a.addEventListener('change', (e) => {
 			const files = e.target.files;
-			resolve(files);			
+			resolve(files);
 		});
 		a.click();
 	});

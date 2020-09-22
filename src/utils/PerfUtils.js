@@ -24,3 +24,30 @@ export const throttle = (callback, limit) => {
         }
     };
 };
+export const createViewUpdator = (component, limit, callback) => {
+	callback = callback || (() => {});
+	let isViewChanged = false;
+	const updateThreshold = limit;
+	function updateView() {
+		component.forceUpdate(() => {
+			callback();
+			component.isViewChanged = false;
+		});
+	};
+	const postUpdateView = debounce(() => {
+	  if(isViewChanged) {
+	    updateView();
+	  }
+	}, updateThreshold + 5);
+	const updateViewThrottle = throttle(() => {
+	  updateView();
+	  postUpdateView();
+	}, updateThreshold);
+	return {
+		updateView: updateView,
+		updateViewHandler: () => {
+	      isViewChanged = true;
+	      updateViewThrottle();
+	    },
+	};
+};
