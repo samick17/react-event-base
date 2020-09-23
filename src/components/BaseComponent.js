@@ -1,5 +1,6 @@
 import React from 'react';
 import EventModel from '../core/EventModel';
+import { debounce, throttle } from '../utils/PerfUtils';
 
 class BaseComponent extends React.Component {
 
@@ -7,9 +8,36 @@ class BaseComponent extends React.Component {
 	_elemEvents = [];
 
 	componentDidMount() {
-		this.isInit = true;
-		this.isUnmounting = false;
-		this.onMount();
+		const component = this;
+		component.isViewChanged = false;
+		component.isInit = true;
+		component.isUnmounting = false;
+		if(typeof component.updateRate === 'number' && component.updateRate > 0) {
+			const updateThreshold = component.updateRate;
+			function updateView(callback) {
+				callback = callback || (() => {});
+				component.originForceUpdate(() => {
+					callback();
+					component.isViewChanged = false;
+				});
+			};
+			const postUpdateView = debounce((fn) => {
+				if(component.isViewChanged) {
+					updateView(fn);
+				}
+			}, updateThreshold + 5);
+			const updateViewThrottle = throttle((fn) => {
+				updateView(fn);
+				postUpdateView(fn);
+			}, updateThreshold);
+			component._forceUpdate = (fn) => {
+				component.isViewChanged = true;
+				updateViewThrottle(fn);
+			};
+		} else {
+			delete component._forceUpdate;
+		}
+		component.onMount();
 	}
 
 	componentWillUnmount() {
@@ -56,9 +84,21 @@ class BaseComponent extends React.Component {
 		super.setState(state, fn);
 	}
 
+	originForceUpdate(fn) {
+		super.forceUpdate(fn);
+	}
+
+	_forceUpdateHandler(fn) {
+		if(this._forceUpdate) {
+			this._forceUpdate(fn);
+		} else {
+			this.originForceUpdate(fn);
+		}
+	}
+
 	forceUpdate(fn) {
 		if(!(this.isInit && !this.isUnmounting)) return;
-		super.forceUpdate(fn);
+		this._forceUpdateHandler(fn);
 	}
 
 	on(name, fn) {

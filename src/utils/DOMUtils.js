@@ -1,6 +1,6 @@
 import { lerp } from '../core/Mathf';
 
-const createImageAdapter = (canvas) => {
+export const createImageAdapter = (canvas) => {
 	return {
 		getImageWithBlob: () => {
 			return new Promise((resolve, reject) => {

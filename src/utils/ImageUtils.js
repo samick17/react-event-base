@@ -1,3 +1,5 @@
+import { createElement, createImageAdapter } from './DOMUtils';
+
 /*
  * @category: static function
  * @description: Create element from string
