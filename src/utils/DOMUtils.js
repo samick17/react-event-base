@@ -1,5 +1,26 @@
 import { lerp } from '../core/Mathf';
 
+let passiveSupported = false;
+
+try {
+  const options = {
+    get passive() { // This function will be called when the browser
+                    //   attempts to access the passive property.
+      passiveSupported = true;
+      return false;
+    }
+  };
+
+  window.addEventListener("test", null, options);
+  window.removeEventListener("test", null, options);
+} catch(err) {
+  passiveSupported = false;
+}
+
+export const getPassiveOptions = () => {
+	return passiveSupported ? { passive: true } : false;
+};
+
 export const createImageAdapter = (canvas) => {
 	return {
 		getImageWithBlob: () => {
@@ -65,8 +86,8 @@ export const createElement = (innerHtml) => {
  * @example:
  * const unregisterFn = registerEvent(body, 'click', (e) => {});
  */
-export const registerEvent = (element, name, callback) => {
-	element.addEventListener(name, callback);
+export const registerEvent = (element, name, callback, options) => {
+	element.addEventListener(name, callback, options);
 	return () => {
 		element.removeEventListener(name, callback);
 	};
@@ -82,11 +103,11 @@ export const registerEvent = (element, name, callback) => {
  * @example:
  * const unregisterFn = registerEvents(body, { 'click', (e) => {} });
  */
-export const registerEvents = (element, nameCallbacksMap) => {
+export const registerEvents = (element, nameCallbacksMap, options) => {
 	const unbindFns = [];
 	for(let name in nameCallbacksMap) {
 		let callback = nameCallbacksMap[name];
-		unbindFns.push(registerEvent(element, name, callback));
+		unbindFns.push(registerEvent(element, name, callback, options));
 	}
 	return () => {
 		for(let i = 0; i < unbindFns.length; i++) {
