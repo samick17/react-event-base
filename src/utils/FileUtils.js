@@ -16,7 +16,7 @@ export const openFile = async (exts) => {
 				if(!isLocked) {
 					reject(new Error('Cancel open the file'));
 				}
-			}, 300);
+			}, 1000);
 		}, { once: true });
 		a.click();
 	});
@@ -39,7 +39,7 @@ export const openFiles = async (exts, isWebkitDirectory) => {
 				if(!isLocked) {
 					reject(new Error('Cancel open the file'));
 				}
-			}, 300);
+			}, 1000);
 		}, { once: true });
 		a.click();
 	});
