@@ -16,7 +16,7 @@ export const openFile = async (exts) => {
 				if(!isLocked) {
 					reject(new Error('Cancel open the file'));
 				}
-			}, 1000);
+			}, 300);
 		}, { once: true });
 		a.click();
 	});
@@ -28,19 +28,20 @@ export const openFiles = async (exts, isWebkitDirectory) => {
 		const a = createElement(`<input type="file" accept="${ext}" multiple/>`);
 		if(isWebkitDirectory) {
 			a.setAttribute('webkitdirectory', '');
+		} else {
+			window.addEventListener('focus', () => {
+				setTimeout(() => {
+					if(!isLocked) {
+						reject(new Error('Cancel open the file'));
+					}
+				}, 300);
+			}, { once: true });
 		}
 		a.addEventListener('change', (e) => {
 			isLocked = true;
 			const files = e.target.files;
 			resolve(files);
 		});
-		window.addEventListener('focus', () => {
-			setTimeout(() => {
-				if(!isLocked) {
-					reject(new Error('Cancel open the file'));
-				}
-			}, 1000);
-		}, { once: true });
 		a.click();
 	});
 };
