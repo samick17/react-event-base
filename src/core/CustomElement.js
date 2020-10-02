@@ -1,3 +1,5 @@
+import { getPassiveOptions } from '../utils/DOMUtils';
+
 class CustomElement {
   constructor(element) {
     this.target = element;
@@ -13,7 +15,8 @@ class CustomElement {
   on(name, callback) {
     const {target} = this;
     try {
-      target.addEventListener(name, callback);
+      const options = getPassiveOptions();
+      target.addEventListener(name, callback, options);
     } catch(err) {
       console.trace();
     }

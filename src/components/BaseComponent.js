@@ -1,6 +1,7 @@
 import React from 'react';
 import EventModel from '../core/EventModel';
 import { debounce, throttle } from '../utils/PerfUtils';
+import { getPassiveOptions } from '../utils/DOMUtils';
 
 class BaseComponent extends React.Component {
 
@@ -57,13 +58,14 @@ class BaseComponent extends React.Component {
 	registerClickEvent(elem, fn) {
 		const comp = this;
 		this.onTouchStart = fn;
-		elem.addEventListener('touchstart', fn);
+		const options = getPassiveOptions();
+		elem.addEventListener('touchstart', fn, options);
 		comp._elemEvents.push({
 			type: 'touchstart',
 			elem: elem,
 			fn: fn
 		});
-		elem.addEventListener('mousedown', fn);
+		elem.addEventListener('mousedown', fn, options);
 		comp._elemEvents.push({
 			type: 'mousedown',
 			elem: elem,
