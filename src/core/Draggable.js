@@ -1,9 +1,12 @@
 import { $ } from './CustomElement';
+import { isPassvieSupported } from '../utils/DOMUtils';
 
 const globalMoveEvents = [];
 
 export const stopEventChain = (evt) => {
-  evt.preventDefault();
+  if(!isPassvieSupported()) {
+    evt.preventDefault();
+  }
   evt.stopPropagation();
 };
 

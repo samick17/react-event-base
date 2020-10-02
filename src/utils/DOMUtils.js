@@ -20,6 +20,9 @@ try {
 export const getPassiveOptions = () => {
 	return passiveSupported ? { passive: true } : false;
 };
+export const isPassvieSupported = () => {
+	return passiveSupported;
+};
 
 export const createImageAdapter = (canvas) => {
 	return {
