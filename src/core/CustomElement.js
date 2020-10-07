@@ -12,11 +12,15 @@ class CustomElement {
       console.trace();
     }
   }
-  on(name, callback) {
+  on(name, callback, withoutOptions=false) {
     const {target} = this;
     try {
-      const options = getPassiveOptions();
-      target.addEventListener(name, callback, options);
+      if(withoutOptions) {
+        target.addEventListener(name, callback);
+      } else {
+        const options = getPassiveOptions();
+        target.addEventListener(name, callback, options);
+      }
     } catch(err) {
       console.trace();
     }

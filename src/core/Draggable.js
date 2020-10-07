@@ -18,7 +18,7 @@ $(window).on('mousemove', (evt) => {
     });
     return true;
   };
-});
+}, true);
 
 export const getMousePosition = (evt) => {
   return {
@@ -98,13 +98,13 @@ export const createDraggable = (elem, {onStart, onDrag, onEnd}={}) => {
         stopEventChain(evt);
         mouseData.mdPos = getMousePosition(evt);
         handleStartEvent(dragId, mouseData);
-        jElem.on('mousemove', mouseMoveHandler);
+        jElem.on('mousemove', mouseMoveHandler, true);
         globalMoveEvents.push(mouseMoveHandler);
-        jElem.on('mouseup', mouseEndHandler);
-        $(window).on('mouseup', mouseEndHandler);
+        jElem.on('mouseup', mouseEndHandler, true);
+        $(window).on('mouseup', mouseEndHandler, true);
       }
     };
-    jElem.on('mousedown', onMouseDown);
+    jElem.on('mousedown', onMouseDown, true);
     const touchIdsMap = {};
     const forChangedTouches = (evt, callback) => {
       for(let i = 0; i < evt.changedTouches.length; i++) {
@@ -162,10 +162,10 @@ export const createDraggable = (elem, {onStart, onDrag, onEnd}={}) => {
           force: touch.force,
         });
       });
-      jElem.on('touchmove', touchMoveHandler);
-      jElem.on('touchend', touchEndHandler);
+      jElem.on('touchmove', touchMoveHandler, true);
+      jElem.on('touchend', touchEndHandler, true);
     };
-    jElem.on('touchstart', onTouchStart);
+    jElem.on('touchstart', onTouchStart, true);
     return function() {
       jElem.off('mousedown', onMouseDown);
       jElem.off('touchstart', onTouchStart);
