@@ -239,23 +239,13 @@ export const registerPasteEventHandler = ({handlers}) => {
 		const handler = handlers[item.type] || handlers.default;
 		handler && handler(item);
 	}
-	const createPasteHandler = (handlers) => {
-		const newHandlers = {};
-		for(let i in handlers) {
-			let handler = handlers[i];
-			newHandlers[i] = function(item) {
-				handle(item, handler);
-			}
-		}
-		return newHandlers;
-	};
-	handlers = createPasteHandler(handlers);
 	function onPasteEvent(e) {
+		e.stopPropagation();
+		e.preventDefault();
 		const items = e.clipboardData.items;
 		const length = items.length;
 		const item = items[length - 1];
-		const handler = handlers[item.type];
-		handler && handler(item);
+		handle(item, handlers);
 	}
 	window.addEventListener('paste', onPasteEvent, false);
 	return () => {
