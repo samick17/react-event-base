@@ -254,7 +254,7 @@ export const registerPasteEventHandler = ({handlers}) => {
 		const items = e.clipboardData.items;
 		const length = items.length;
 		const item = items[length - 1];
-		const handler = handlers[item.kind];
+		const handler = handlers[item.type];
 		handler && handler(item);
 	}
 	window.addEventListener('paste', onPasteEvent, false);
