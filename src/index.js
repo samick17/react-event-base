@@ -3,6 +3,7 @@ export { default as EventModel } from './core/EventModel';
 /* Component */
 export { default as BaseComponent } from './components/BaseComponent';
 /* Utility functions */
+export * as DataUtils from './utils/DataUtils';
 export * as DOMUtils from './utils/DOMUtils';
 export * as EventUtils from './utils/EventUtils';
 export * as IOUtils from './utils/IOUtils';
@@ -20,3 +21,4 @@ export * as DropZone from './core/DropZone';
 export * as AdvancedDraggable from './core/AdvancedDraggable';
 /* Others */
 export * as Mathf from './core/Mathf';
+
