@@ -1,4 +1,7 @@
 export const getBy = (data, key) => {
+	if(typeof key === 'undefined' || key === null) {
+		return data[key];
+	}
 	const keyArr = key.split('.');
 	let entry = data;
 	for(let i = 0; i < keyArr.length; i++) {
@@ -24,6 +27,23 @@ export const removeBy = (data, key) => {
 		entry = entry[keyArr[i]] || {};
 	}
 	delete entry[keyArr[keyArr.length - 1]];
+};
+export const containsKey = (data, key) => {
+	if(typeof key === 'undefined' || key === null) {
+		return key in data;
+	}
+	const keyArr = key.split('.');
+	let isInData = false;
+	let entry = data;
+	for(let i = 0; i < keyArr.length; i++) {
+		if(keyArr[i] in entry) {
+			entry = entry[keyArr[i]];
+			isInData = true;
+		} else {
+			return false;
+		}
+	}
+	return isInData;
 };
 export const insertElement = (data, key, index, value) => {
 	const keyArr = key.split('.');

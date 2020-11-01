@@ -1,6 +1,6 @@
 {
   "name": "react-event-base",
-  "version": "1.1.54",
+  "version": "1.1.55",
   "description": "React event-driven library",
   "author": "samick17",
   "license": "MIT",
@@ -27,7 +27,7 @@
     "build:component": "rollup -c rollup-configs/Components.rollup.config.js",
     "build:core": "rollup -c rollup-configs/Core.rollup.config.js",
     "build:dnd": "rollup -c rollup-configs/DragAndDrop.rollup.config.js",
-    "build:utils": "rollup -c rollup-configs/DOMUtils.rollup.config.js --exports default && rollup -c rollup-configs/EventUtils.rollup.config.js --exports default && rollup -c rollup-configs/IOUtils.rollup.config.js --exports default && rollup -c rollup-configs/ObjectUtils.rollup.config.js --exports default && rollup -c rollup-configs/PerfUtils.rollup.config.js --exports default && rollup -c rollup-configs/VK.rollup.config.js --exports default && rollup -c rollup-configs/ImageUtils.rollup.config.js --exports default && rollup -c rollup-configs/FileUtils.rollup.config.js && rollup -c rollup-configs/DataUtils.rollup.config.js --exports default",
+    "build:utils": "rollup -c rollup-configs/DOMUtils.rollup.config.js --exports default && rollup -c rollup-configs/EventUtils.rollup.config.js --exports default && rollup -c rollup-configs/IOUtils.rollup.config.js --exports default && rollup -c rollup-configs/ObjectUtils.rollup.config.js --exports default && rollup -c rollup-configs/PerfUtils.rollup.config.js --exports default && rollup -c rollup-configs/VK.rollup.config.js --exports default && rollup -c rollup-configs/ImageUtils.rollup.config.js --exports default && rollup -c rollup-configs/FileUtils.rollup.config.js --exports default && rollup -c rollup-configs/DataUtils.rollup.config.js --exports default",
     "build:mathf": "rollup -c rollup-configs/Mathf.rollup.config.js --exports default",
     "prepare": "yarn run build",
     "predeploy": "cd example && yarn install && yarn run build",
@@ -49,12 +49,12 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.1",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/preset-react": "^7.10.4",
-    "@rollup/plugin-commonjs": "^14.0.0",
-    "@rollup/plugin-node-resolve": "^8.4.0",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
+    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
     "@rollup/plugin-url": "^5.0.1",
     "@svgr/rollup": "^5.4.0",
     "babel-eslint": "^10.1.0",
@@ -69,10 +69,10 @@
     "eslint-plugin-standard": "^4.0.1",
     "gh-pages": "^3.1.0",
     "js-mdg": "^1.0.1",
-    "react-scripts": "^3.4.1",
-    "rollup": "^2.23.1",
+    "react-scripts": "^4.0.0",
+    "rollup": "^2.32.1",
     "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-peer-deps-external": "^2.2.3",
-    "rollup-plugin-postcss": "^3.1.4"
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^3.1.8"
   }
 }
