@@ -5,7 +5,9 @@ const globalMoveEvents = [];
 
 export const stopEventChain = (evt) => {
   if(!isPassvieSupported()) {
-    evt.preventDefault();
+    if(!evt.defaultPrevented) {
+      evt.preventDefault();
+    }
   }
   evt.stopPropagation();
 };

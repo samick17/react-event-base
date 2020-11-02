@@ -61,7 +61,7 @@ export const registerEvents = (elem, events) => {
  */
 export const stopEventChain = (event) => {
     try {
-        if(event.defaultPrevented) {
+        if(!event.defaultPrevented) {
             event.preventDefault();
         }
         event.stopPropagation();
