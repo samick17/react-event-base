@@ -55,10 +55,10 @@ class BaseComponent extends React.Component {
 	onUnmount() {}
 
 	/**/
-	registerClickEvent(elem, fn) {
+	registerClickEvent(elem, fn, withOptions=false) {
 		const comp = this;
 		this.onTouchStart = fn;
-		const options = getPassiveOptions();
+		const options = withOptions ? getPassiveOptions() : undefined;
 		elem.addEventListener('touchstart', fn, options);
 		comp._elemEvents.push({
 			type: 'touchstart',
