@@ -61,10 +61,10 @@ export const registerEvents = (elem, events) => {
  */
 export const stopEventChain = (event) => {
     try {
+        event.stopPropagation();
         if(!event.defaultPrevented) {
             event.preventDefault();
         }
-        event.stopPropagation();
     } catch(err) {
         
     }
@@ -205,9 +205,9 @@ export const registerElementEvents = (elem, events) => {
             position: getMousePosition(event),
             event,
         });
-        jElem.on('mouseup', onMouseUpHandler);
-        jElem.on('mouseout', onMouseOutHandler);
-        jElem.on('mouseenter', onMouseEnterHandler);
+        jElem.on('mouseup', onMouseUpHandler, true);
+        jElem.on('mouseout', onMouseOutHandler, true);
+        jElem.on('mouseenter', onMouseEnterHandler, true);
         return true;
     };
     const onTouchStartHandler = event => {
@@ -218,7 +218,7 @@ export const registerElementEvents = (elem, events) => {
             position: getTouchPosition(event.changedTouches[event.changedTouches.length - 1]),
             event,
         });
-        jElem.on('touchend', onTouchEndHandler);
+        jElem.on('touchend', onTouchEndHandler, true);
         return true;
     };
     /**/
@@ -245,8 +245,8 @@ export const registerElementEvents = (elem, events) => {
         startActiveTimer('t');
         return true;
     };
-    jElem.on('mousedown', onMouseDownHandler);
-    jElem.on('touchstart', onTouchStartHandler);
+    jElem.on('mousedown', onMouseDownHandler, true);
+    jElem.on('touchstart', onTouchStartHandler, true);
     return function() {
         jElem.off('mousedown', onMouseDownHandler);
         jElem.off('touchstart', onTouchStartHandler);

@@ -1,15 +1,14 @@
 import { $ } from './CustomElement';
-import { isPassvieSupported } from '../utils/DOMUtils';
 
 const globalMoveEvents = [];
 
-export const stopEventChain = (evt) => {
-  if(!isPassvieSupported()) {
-    if(!evt.defaultPrevented) {
-      evt.preventDefault();
-    }
+const stopEventChain = (evt) => {
+  try {
+    evt.stopPropagation();
+    evt.preventDefault();
+  } catch(err) {
+    console.log(err);
   }
-  evt.stopPropagation();
 };
 
 $(window).on('mousemove', (evt) => {
