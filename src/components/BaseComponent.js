@@ -87,6 +87,7 @@ class BaseComponent extends React.Component {
 	}
 
 	originForceUpdate(fn) {
+		if(!(this.isInit && !this.isUnmounting)) return;
 		super.forceUpdate(fn);
 	}
 
