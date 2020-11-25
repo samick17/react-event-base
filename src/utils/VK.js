@@ -10,6 +10,10 @@ export const ArrowDown = 40;
 export const ArrowLeft = 37;
 export const ArrowRight = 39;
 
+function normalizeKeys(keys) {
+	return keys.map(k => k.toLowerCase()).sort().join(',');
+}
+
 /*
  * @category: static function
  * @description: Register KeyDown Event Handlers for window
@@ -36,7 +40,7 @@ export const ArrowRight = 39;
 export const registerKeyDownEventHandlers = (handlers, logKey=false) => {
 	const keyEventHandlers = {};
 	forEach(handlers, (def) => {
-		const key = def.keys.sort().join(',').toLowerCase();
+		const key = normalizeKeys(def.keys);
 		keyEventHandlers[key] = def.handler;
 	});
 	return registerEvent(document, 'keydown', (e) => {
@@ -55,7 +59,7 @@ export const registerKeyDownEventHandlers = (handlers, logKey=false) => {
 			isOneOfComboKeys = true;
 		}
 		if(['Control', 'Shift', 'Alt'].indexOf(e.key) < 0) keys.push(e.key);
-		const key = keys.sort().join(',').toLowerCase();
+		const key = normalizeKeys(keys);
 		const handler = keyEventHandlers[key];
 		if(handler) {
 			e.stopPropagation();
