@@ -791,3 +791,23 @@ export const uuid = () => {
         return (c === 'x' ? r : (r & (0x3 | 0x8))).toString(16);
     });
 };
+
+function _genCode() {
+    const d = Math.round(Math.random() * 9999999) % 10;
+    if(d <= 4) {
+        // 0 - 9
+        const code = 48 + (Math.round(Math.random() * 9999999) % 10);
+        return String.fromCharCode(code);
+    } else {
+        // 0 - 25
+        const code = 65 + (Math.round(Math.random() * 9999999) % 26);
+        return String.fromCharCode(code);
+    }
+}
+export const genCode = (len) => {
+    let code = '';
+    for(let i = 0; i < len; i++) {
+        code += _genCode();
+    }
+    return code;
+};
