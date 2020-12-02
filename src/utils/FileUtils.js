@@ -54,3 +54,22 @@ export const saveFile = (name, blob) => {
 	a.click();
 	URL.revokeObjectURL(url);
 };
+export const fileAsText = async (file) => {
+	return new Promise((resolve) => {
+		const fr = new FileReader();
+		fr.onload = () => {
+	    	resolve(fr.result);
+	    };
+	    fr.readAsText(file);
+	});
+};
+export const prettifyFileSize = (size, digits=2) => {
+	const sizeArr = ['bytes', 'KB', 'MB', 'GB', 'TB'];
+	let n = size;
+	let index = 0;
+	while(n > 1024) {
+		n /= 1024;
+		index++;
+	}
+	return n.toFixed(digits) + ' ' + sizeArr[index];
+};
