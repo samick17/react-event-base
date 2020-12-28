@@ -7,6 +7,8 @@ export * as DataUtils from './utils/DataUtils';
 export * as DOMUtils from './utils/DOMUtils';
 export * as EventUtils from './utils/EventUtils';
 export * as IOUtils from './utils/IOUtils';
+export * as FileUtils from './utils/FileUtils';
+export * as FileSystem from './utils/FileSystem';
 export * as ObjectUtils from './utils/ObjectUtils';
 export * as PerfUtils from './utils/PerfUtils';
 export * as VK from './utils/VK';
