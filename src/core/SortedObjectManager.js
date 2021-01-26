@@ -68,14 +68,14 @@ class SortedObjectManager extends ObjectManager {
 	forEach(callback) {
 		return forEach(this._indices, (id, key, index) => {
 			const object = this._objects[id];
-			object && callback(object, id, index);
+			return object && callback(object, id, index);
 		});
 	}
 
 	forEachAsync(callback) {
 		return forEachAsync(this._indices, async(id, key, index) => {
 			const object = this._objects[id];
-			object && await callback(object, id, index);
+			return object && await callback(object, id, index);
 		});
 	}
 
