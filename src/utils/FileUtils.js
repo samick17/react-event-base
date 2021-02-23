@@ -1,5 +1,13 @@
 import { createElement } from './DOMUtils';
 
+const params = {
+	cancelTimeout: 1000,
+};
+
+export const setCancelTimeout = (timeout) => {
+	params.cancelTimeout = timeout;
+};
+
 export const openFile = async (exts) => {
 	const ext = (exts || []).join(',');
 	return new Promise((resolve, reject) => {
@@ -16,7 +24,7 @@ export const openFile = async (exts) => {
 				if(!isLocked) {
 					reject(new Error('Cancel open the file'));
 				}
-			}, 300);
+			}, params.cancelTimeout);
 		}, { once: true });
 		a.click();
 	});
@@ -34,7 +42,7 @@ export const openFiles = async (exts, isWebkitDirectory) => {
 					if(!isLocked) {
 						reject(new Error('Cancel open the file'));
 					}
-				}, 300);
+				}, params.cancelTimeout);
 			}, { once: true });
 		}
 		a.addEventListener('change', (e) => {
