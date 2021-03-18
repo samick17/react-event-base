@@ -34,3 +34,11 @@ export const clamp = (c, min, max) => {
 export const lerp = (a, b, t) => {
 	return a + clamp(t, 0, 1) * (b - a);
 };
+
+export const randomValue = (s, e) => {
+    return s + Math.random() * (e - s);
+};
+
+export const randomInt = (s, e) => {
+    return Math.round(s + Math.random() * (e - s));
+};

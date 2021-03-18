@@ -51,3 +51,8 @@ export const createViewUpdator = (component, limit) => {
 	    },
 	};
 };
+export const delay = (timeout) => {
+    return new Promise((resolve) => {
+        setTimeout(resolve, timeout);
+    });
+};

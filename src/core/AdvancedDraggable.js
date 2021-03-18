@@ -68,14 +68,18 @@ class AdvacedDraggable {
 		this.unbindDraggableEvent();
 	}
 
-	addDropZone(dropzone) {
-		this.dropzones.push(dropzone);
+	_registerDropZoneEvents(dropzone) {
 		let unbindRemoveEvent = dropzone.on('remove', () => {
 			this.dropzones.remove(dropzone);
 			unbindRemoveEvent();
 			this._unbindRemoveEvents.remove(unbindRemoveEvent);
 		});
 		this._unbindRemoveEvents.push(unbindRemoveEvent);
+	}
+
+	addDropZone(dropzone) {
+		this.dropzones.push(dropzone);
+		this._registerDropZoneEvents(dropzone);
 		return this;
 	}
 
@@ -93,9 +97,9 @@ class AdvacedDraggable {
 			unbindRemoveEvent();
 		});
 		this._unbindRemoveEvents = [];
-		this.dropzones = [];
-		dropzones.forEach((dropzone) => {
-			this.addDropZone(dropzone);
+		this.dropzones = dropzones;
+		this.dropzones.forEach((dropzone) => {
+			this._registerDropZoneEvents(dropzone);
 		});
 		return this;
 	}

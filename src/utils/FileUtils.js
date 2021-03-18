@@ -81,3 +81,11 @@ export const prettifyFileSize = (size, digits=2) => {
 	}
 	return n.toFixed(digits) + ' ' + sizeArr[index];
 };
+function str2ab(str) {
+	return new TextEncoder().encode(str);
+}
+export const textToFile = (text, fileName, mimeType) => {
+	const arrayBuffer = str2ab(text);
+    const file = new File([arrayBuffer], fileName, {type: mimeType});
+    return file;
+};
