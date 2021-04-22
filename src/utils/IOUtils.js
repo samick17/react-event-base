@@ -183,6 +183,8 @@ export const getMimeTypeByArrayBuffer = (arrayBuffer) => {
 			return 'image/svg+xml';
 		case '0010':
 			return 'image/x-icon';
+		case '25504446':
+			return 'application/pdf';
 		default:
 			return;
 	}
