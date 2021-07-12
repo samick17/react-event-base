@@ -180,11 +180,44 @@ export const getMimeTypeByArrayBuffer = (arrayBuffer) => {
 		case '52494646':
 			return 'image/webp';
 		case '3c737667':
+		case '3c3f786d':
 			return 'image/svg+xml';
 		case '0010':
 			return 'image/x-icon';
+		case '49492a0':
+		return 'image/tiff';
 		case '25504446':
 			return 'application/pdf';
+		case 'fff15080':
+			return 'audio/aac';
+		case '4944334':
+			return 'audio/mpeg';
+		case '4f676753':
+			return 'audio/ogg';
+		case '52494646':
+			return 'audio/wav';
+		case '3026b275':
+			return 'video/x-ms-wma';
+		case '00014':
+			return 'video/quicktime';
+		case '00020':
+			return 'video/mp4';
+		case '1a45dfa3':
+			return 'video/webm';
+		case '3026b275':
+			return 'video/x-ms-wmv';
+		case 'd0cf11e0':
+			return 'application/msword';
+		case '504b34':
+			return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+		case 'd0cf11e0':
+			return 'application/vnd.ms-powerpoint';
+		case '504b34':
+			return 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+		case 'd0cf11e0':
+			return 'application/vnd.ms-excel';
+		case '504b34':
+			return 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 		default:
 			return;
 	}
