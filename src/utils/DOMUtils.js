@@ -39,6 +39,13 @@ export const createImageAdapter = (canvas) => {
 				});
 			});
 		},
+		getBlob: () => {
+			return new Promise((resolve, reject) => {
+				canvas.toBlob(blob => {
+					resolve(blob);
+				});
+			});
+		},
 		getBlobURL: () => {
 			return new Promise((resolve, reject) => {
 				canvas.toBlob(blob => {

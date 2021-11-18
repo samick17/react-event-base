@@ -53,14 +53,15 @@ export const openFiles = async (exts, isWebkitDirectory) => {
 		a.click();
 	});
 };
-export const saveFile = (name, blob) => {
+export const saveFile = (name, arg) => {
 	const a = document.createElement('a');
 	a.style.display = 'none';
-	const url = URL.createObjectURL(blob);
+	const isBlob = arg instanceof Blob;
+	const url = isBlob ? URL.createObjectURL(arg) : arg;
 	a.href = url;
 	a.download = name;
 	a.click();
-	URL.revokeObjectURL(url);
+	if(isBlob) URL.revokeObjectURL(url);
 };
 export const fileAsText = async (file) => {
 	return new Promise((resolve) => {
@@ -72,7 +73,7 @@ export const fileAsText = async (file) => {
 	});
 };
 export const prettifyFileSize = (size, digits=2) => {
-	const sizeArr = ['bytes', 'KB', 'MB', 'GB', 'TB'];
+	const sizeArr = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 	let n = size;
 	let index = 0;
 	while(n > 1024) {
