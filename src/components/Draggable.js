@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseComponent from './BaseComponent.js';
-import Draggable from '../core/Draggable';
+import Draggable from '../core/Draggable.js';
 
 // getDraggableElement
 // onBeforeMove

@@ -1,4 +1,4 @@
-expot const zfill = (text, ch, len) => {
+export const zfill = (text, ch, len) => {
   text = text.toString();
   let result = text;
   ch = ch || ' ';

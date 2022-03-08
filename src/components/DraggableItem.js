@@ -1,5 +1,5 @@
 import React from 'react';
-import AdvancedDraggable from './AdvancedDraggable.jsx';
+import AdvancedDraggable from './AdvancedDraggable.js';
 
 // props:
 // - getModel

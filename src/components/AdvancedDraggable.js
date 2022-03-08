@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseComponent from './BaseComponent.js';
-import AdvancedDraggable from '../core/AdvacedDraggable';
+import AdvancedDraggable from '../core/AdvancedDraggable.js';
 
 // getDraggableElement
 // getValue

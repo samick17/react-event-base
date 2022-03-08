@@ -1,7 +1,7 @@
 import React from 'react';
-import EventModel from '../core/EventModel';
-import { debounce, throttle } from '../utils/PerfUtils';
-import { getPassiveOptions } from '../utils/DOMUtils';
+import EventModel from '../core/EventModel.js';
+import { debounce, throttle } from '../utils/PerfUtils.js';
+import { getPassiveOptions } from '../utils/DOMUtils.js';
 
 class BaseComponent extends React.Component {
 
