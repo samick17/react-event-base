@@ -297,3 +297,35 @@ export const registerDragDropEvents = (elem, {onEnter, onLeave, onDrop}={}) => {
 		},
 	});
 };
+export const copyToClipboard = (text) => {
+	let a = document.createElement('textarea');
+	Object.assign(a.style, {
+		position: 'fixed',
+		left: -9999,
+		top: -9999,
+		opacity: 0,
+	});
+	document.body.append(a);
+	a.innerHTML = text;
+	a.select();
+  document.execCommand('copy');
+  window.getSelection().removeAllRanges();// to deselect
+  a.remove();
+};
+export async function loadLib(src, id) {
+	return new Promise((resolve, reject) => {
+		if(document.querySelector(`script#${id}`)) return;
+		const script = document.createElement('script');
+		script.setAttribute('id', id);
+        script.setAttribute('charset', 'utf-8');
+        script.setAttribute('type', 'text/javascript');
+		script.onload = () => {
+			resolve();
+		};
+		script.onerror = (err) => {
+			reject(err);
+		};
+		script.src = src;
+		document.head.append(script);
+	});
+}

@@ -811,3 +811,10 @@ export const genCode = (len) => {
     }
     return code;
 };
+export const mapRange = (start, end, callback) => {
+    let items = [];
+    for(let i = start; i <= end; i++) {
+        items.push(callback(i));
+    }
+    return items;
+};
