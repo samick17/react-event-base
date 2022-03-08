@@ -7,6 +7,7 @@ export * as DOMUtils from '../../utils/DOMUtils';
 export * as EventUtils from '../../utils/EventUtils';
 export * as IOUtils from '../../utils/IOUtils';
 export * as ObjectUtils from '../../utils/ObjectUtils';
+export * as StringUtils from '../../utils/StringUtils';
 export * as PerfUtils from '../../utils/PerfUtils';
 export * as VK from '../../utils/VK';
 /* Object Management Model */
