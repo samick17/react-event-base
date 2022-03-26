@@ -53,7 +53,7 @@ export const openFiles = async (exts, isWebkitDirectory) => {
 		a.click();
 	});
 };
-export const saveFile = (name, arg) => {
+export const saveFile = (name, arg, revokeURL) => {
 	const a = document.createElement('a');
 	a.style.display = 'none';
 	const isBlob = arg instanceof Blob;
@@ -61,7 +61,7 @@ export const saveFile = (name, arg) => {
 	a.href = url;
 	a.download = name;
 	a.click();
-	if(isBlob) URL.revokeObjectURL(url);
+	if(isBlob && revokeURL) URL.revokeObjectURL(url);
 };
 export const fileAsText = async (file) => {
 	return new Promise((resolve) => {
@@ -109,8 +109,8 @@ export const resizeImage = (file, size, fillColor, type) => {
 	return new Promise(resolve => {
 		const canvas = document.createElement('canvas');
 		const ctx = canvas.getContext('2d');
-		let img = new window.Image();
-		let url = URL.createObjectURL(file);
+		const img = new window.Image();
+		const url = URL.createObjectURL(file);
 		img.addEventListener('load', () => {
 			ctx.beginPath();
 			if(fillColor) {
@@ -152,13 +152,13 @@ export async function generateThumbnail(file) {
 		}, 'transparent', 'image/jpg');
 	} else if(isVideo(file.type)) {
 		return new Promise(resolve => {
-			let url = URL.createObjectURL(file);
-			let video = document.createElement('video');
+			const url = URL.createObjectURL(file);
+			const video = document.createElement('video');
 			async function captureImage() {
-				let canvas = document.createElement('canvas');
+				const canvas = document.createElement('canvas');
 				canvas.width = video.videoWidth;
 				canvas.height = video.videoHeight;
-				let ctx = canvas.getContext('2d');
+				const ctx = canvas.getContext('2d');
 				ctx.drawImage(video, 0, 0);
 				canvas.toBlob(async blob => {
 					URL.revokeObjectURL(url);
