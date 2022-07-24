@@ -108,17 +108,38 @@ export const blobAsFile = async (blob, fileName) => {
 	fileName = fileName || (await getMD5FromBlob(blob));
 	return new File(blob, fileName, { type: blob.type });
 };
+function _isMatchPattern(arrayBuffer, pattern, mask) {
+	let counter = mask.length;
+	for(let i = 0; i < pattern.length; i++) {
+		let symbol = arrayBuffer[i];
+		
+		if(mask[i] === 0x00) {
+			counter -= 1;
+			continue;
+		} else if(mask[i] === 0xFF && symbol === pattern[i]) {
+			console.log(symbol, pattern[i]);
+			counter -= 1;
+		} else {
+			return false;
+		}
+	}
+	return counter <= 0;
+}
 export const getMimeTypeByArrayBuffer = (arrayBuffer) => {
 	const arr = (new Uint8Array(arrayBuffer)).subarray(0, 4);
 	let header = '';
 	for (let i = 0; i < arr.length; i++) {
 		header += arr[i].toString(16);
 	}
+	console.log(header);
 	switch (header) {
+		case '424d':
+			return 'image/bmp';
 		case '89504e47':
 			return 'image/png';
 		case '47494638':
 			return 'image/gif';
+		case 'ffd8ff':
 		case 'ffd8ffe0':
 		case 'ffd8ffe1':
 		case 'ffd8ffe2':
@@ -127,7 +148,20 @@ export const getMimeTypeByArrayBuffer = (arrayBuffer) => {
 		case 'ffd8ffdb':
 			return 'image/jpeg';
 		case '52494646':
-			return 'image/webp';
+			if(_isMatchPattern(arrayBuffer,
+				[0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00, 0x57, 0x45, 0x42, 0x50, 0x56, 0x50],
+				[0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF])) {
+				return 'image/webp';
+			} else if(_isMatchPattern(arrayBuffer,
+				[0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00, 0x41, 0x56, 0x49, 0x20],
+				[0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF])) {
+				return 'video/avi';
+			} else if(_isMatchPattern(arrayBuffer,
+				[0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00, 0x57, 0x41, 0x56, 0x45],
+				[0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF])) {
+				return 'audio/wave';
+			}
+			break;
 		case '3c737667':
 		case '3c3f786d':
 			return 'image/svg+xml';
@@ -139,12 +173,12 @@ export const getMimeTypeByArrayBuffer = (arrayBuffer) => {
 			return 'application/pdf';
 		case 'fff15080':
 			return 'audio/aac';
-		case '4944334':
+		case '494433':
 			return 'audio/mpeg';
+		case '4f67530':
+			return 'application/ogg';
 		case '4f676753':
 			return 'audio/ogg';
-		case '52494646':
-			return 'audio/wav';
 		case '3026b275':
 			return 'video/x-ms-wma';
 		case '00014':

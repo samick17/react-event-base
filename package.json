@@ -1,6 +1,6 @@
 {
   "name": "react-event-base",
-  "version": "1.1.77",
+  "version": "1.1.78",
   "description": "React event-driven library",
   "author": "samick17",
   "license": "MIT",
@@ -29,11 +29,11 @@
     "build:mathf": "rollup -c rollup-configs/Mathf.rollup.config.js --exports default",
     "prepare": "yarn run build",
     "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build",
     "start": "rollup -c -w",
     "prepublishOnly": "cp -r ./dist/* . && rm -rf ./dist",
     "postpublish": "git clean -fd",
-    "gendoc": "node scripts/md-generator.js"
+    "gendoc": "node scripts/md-generator.js",
+    "test": "jest"
   },
   "dependencies": {
     "lzutf8": "^0.6.0",
@@ -64,7 +64,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-react": "^7.24.0",
-    "gh-pages": "^3.2.3",
+    "jest": "^28.1.3",
     "js-mdg": "^1.0.1",
     "rollup": "^2.53.1",
     "rollup-plugin-peer-deps-external": "^2.2.4"

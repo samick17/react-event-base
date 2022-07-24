@@ -1,12 +1,19 @@
 import {
-	compressJson,
-	decompressJson,
+	getMimeTypeByArrayBuffer,
 } from './IOUtils';
 
-test('IOUtils:compress/decompress', async () => {
-	const originData = {
-		foo: 'bar'
-	};
-	const compressedData = await compressJson(originData);
-	expect(await decompressJson(compressedData)).toEqual(originData);
+test('IOUtils:getMimeTypeByArrayBuffer', async () => {
+	// Image
+	expect(getMimeTypeByArrayBuffer(Buffer.from([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]))).toEqual('image/png');
+	expect(getMimeTypeByArrayBuffer(Buffer.from([0x42, 0x4D]))).toEqual('image/bmp');
+	expect(getMimeTypeByArrayBuffer(Buffer.from([0x47, 0x49, 0x46, 0x38, 0x37, 0x61]))).toEqual('image/gif');
+	expect(getMimeTypeByArrayBuffer(Buffer.from([0x47, 0x49, 0x46, 0x38, 0x39, 0x61]))).toEqual('image/gif');
+	expect(getMimeTypeByArrayBuffer(Buffer.from([0xFF, 0xD8, 0xFF]))).toEqual('image/jpeg');
+	expect(getMimeTypeByArrayBuffer(Buffer.from([0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00, 0x57, 0x45, 0x42, 0x50, 0x56, 0x50]))).toEqual('image/webp');
+	// Audio / Video
+	expect(getMimeTypeByArrayBuffer(Buffer.from([0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00, 0x41, 0x56, 0x49, 0x20]))).toEqual('video/avi');
+	expect(getMimeTypeByArrayBuffer(Buffer.from([0x49, 0x44, 0x33]))).toEqual('audio/mpeg');
+	expect(getMimeTypeByArrayBuffer(Buffer.from([0x4F, 0x67, 0x53, 0x00]))).toEqual('application/ogg');
+	expect(getMimeTypeByArrayBuffer(Buffer.from([0x4D, 0x54, 0x67, 0x64, 0x00, 0x00, 0x00, 0x06]))).toEqual('audio/midi');
+	expect(getMimeTypeByArrayBuffer(Buffer.from([0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00, 0x57, 0x41, 0x56, 0x45]))).toEqual('audio/wave');
 });
