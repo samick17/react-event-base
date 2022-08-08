@@ -44,7 +44,7 @@ export const createDragContextWith = (dragContextMap={}) => (dragId) => {
   return dragContext;
 };
 
-export const createDraggable = (elem, {onStart, onDrag, onEnd}={}) => {
+export const createDraggable = (elem, {onStart, onDrag, onEnd, cancelable}={}) => {
   const jElem = $(elem);
   const onStartHandler = onStart || function() {};
   const onDragHandler = onDrag || function() {};
@@ -167,16 +167,31 @@ export const createDraggable = (elem, {onStart, onDrag, onEnd}={}) => {
       jElem.on('touchend', touchEndHandler, true);
     };
     jElem.on('touchstart', onTouchStart, true);
-    return function() {
-      jElem.off('mousedown', onMouseDown);
-      jElem.off('touchstart', onTouchStart);
+    return {
+      unbind: () => {
+        jElem.off('mousedown', onMouseDown);
+        jElem.off('touchstart', onTouchStart);
+      },
+      cancel: () => {
+        jElem.off('mousemove', mouseMoveHandler);
+        globalMoveEvents.splice(globalMoveEvents.indexOf(mouseMoveHandler), 1);
+        jElem.off('mouseup', mouseEndHandler);
+        $(window).off('mouseup', mouseEndHandler);
+        jElem.off('touchmove', touchMoveHandler);
+        jElem.off('touchend', touchEndHandler);
+      },
     };
   }
-  return registerDragEvent(jElem, {
+  let result = registerDragEvent(jElem, {
     start: onStart,
     drag: onDrag,
     end: onEnd
   });
+  if(cancelable) {
+    return result;
+  } else {
+    return result.unbind;
+  }
 };
 
 export default createDraggable;
