@@ -26,8 +26,12 @@ class ObjectManager extends EventModel {
             this._length++;
             this.doOnAddObject(objId, object, index);
         } else {
-            console.log('Cannot add object', objId, object, index);
+            this.log('Cannot add object', objId, object, index);
         }
+    }
+
+    log() {
+        if(typeof this._log === 'function') this._log.apply(this._log, arguments);
     }
 
     canAddObject(objId, object, index) {

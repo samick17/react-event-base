@@ -117,7 +117,6 @@ function _isMatchPattern(arrayBuffer, pattern, mask) {
 			counter -= 1;
 			continue;
 		} else if(mask[i] === 0xFF && symbol === pattern[i]) {
-			console.log(symbol, pattern[i]);
 			counter -= 1;
 		} else {
 			return false;
@@ -131,7 +130,6 @@ export const getMimeTypeByArrayBuffer = (arrayBuffer) => {
 	for (let i = 0; i < arr.length; i++) {
 		header += arr[i].toString(16);
 	}
-	console.log(header);
 	switch (header) {
 		case '424d':
 			return 'image/bmp';
