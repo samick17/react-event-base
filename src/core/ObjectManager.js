@@ -31,7 +31,13 @@ class ObjectManager extends EventModel {
     }
 
     log() {
-        if(typeof this._log === 'function') this._log.apply(this._log, arguments);
+        if(typeof this._log === 'function') {
+            this._log.apply(this._log, arguments);
+        } else {
+            this.forEach(obj => {
+                obj.log && obj.log();
+            });
+        }
     }
 
     canAddObject(objId, object, index) {
@@ -152,12 +158,6 @@ class ObjectManager extends EventModel {
             objects.push(obj);
         });
         return objects;
-    }
-
-    log() {
-        this.forEach(obj => {
-            obj.log();
-        });
     }
 
     delegate(fn, args) {
