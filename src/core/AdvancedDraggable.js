@@ -1,4 +1,4 @@
-import Draggable from './Draggable';
+import { createDraggable } from './Draggable';
 
 const updateDropZones = (touchObject, advancedDraggable) => {
 	let dropzones = advancedDraggable.dropzones;
@@ -28,7 +28,7 @@ class AdvacedDraggable {
 		this.dropzones = [];
 		let touchObjectMap = this.touchObjectMap = {};
 		this.srcValue = undefined;
-		this.unbindDraggableEvent = Draggable(elem, {
+		this.unbindDraggableEvent = createDraggable(elem, {
 			onStart: (point, context) => {
 				let touchId = context.id;
 				touchObjectMap[touchId] = {
@@ -114,8 +114,6 @@ class AdvacedDraggable {
 export const createAdvanceDraggable = (elem) => {
 	return new AdvacedDraggable(elem);
 };
-
-export default AdvacedDraggable;
 
 /*
 Usage:

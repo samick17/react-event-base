@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseComponent from './BaseComponent.js';
-import AdvancedDraggable from '../core/AdvancedDraggable.js';
+import { createAdvanceDraggable } from '../core/AdvancedDraggable.js';
 
 // getDraggableElement
 // getValue
@@ -18,8 +18,7 @@ class AdvancedDraggableComponent extends BaseComponent {
 		this.unbindDraggable();
 		if(node) {
 			const value = this.props.getValue();
-			this.draggable = AdvancedDraggable
-			.createAdvanceDraggable(node)
+			this.draggable = createAdvanceDraggable(node)
 			.setValue(value);
 			this.draggable.dropzones = this.props.dropzones;
 		}

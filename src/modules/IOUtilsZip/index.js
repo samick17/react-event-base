@@ -1,2 +1,1 @@
-import * as IOUtilsZip$ from '../../utils/IOUtilsZip';
-export default IOUtilsZip$;
+export * from '../../utils/IOUtilsZip';

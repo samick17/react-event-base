@@ -125,82 +125,100 @@ function _isMatchPattern(arrayBuffer, pattern, mask) {
 	return counter <= 0;
 }
 export const getMimeTypeByArrayBuffer = (arrayBuffer) => {
-	const arr = (new Uint8Array(arrayBuffer)).subarray(0, 4);
+	let arr = new Uint8Array(arrayBuffer).subarray(0, 14);
 	let header = '';
 	for (let i = 0; i < arr.length; i++) {
-		header += arr[i].toString(16);
+	  header += arr[i].toString(16);
 	}
-	switch (header) {
-		case '424d':
-			return 'image/bmp';
-		case '89504e47':
-			return 'image/png';
-		case '47494638':
-			return 'image/gif';
-		case 'ffd8ff':
-		case 'ffd8ffe0':
-		case 'ffd8ffe1':
-		case 'ffd8ffe2':
-		case 'ffd8ffe3':
-		case 'ffd8ffe8':
-		case 'ffd8ffdb':
-			return 'image/jpeg';
-		case '52494646':
-			if(_isMatchPattern(arrayBuffer,
-				[0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00, 0x57, 0x45, 0x42, 0x50, 0x56, 0x50],
-				[0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF])) {
-				return 'image/webp';
-			} else if(_isMatchPattern(arrayBuffer,
-				[0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00, 0x41, 0x56, 0x49, 0x20],
-				[0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF])) {
-				return 'video/avi';
-			} else if(_isMatchPattern(arrayBuffer,
-				[0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00, 0x57, 0x41, 0x56, 0x45],
-				[0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF])) {
-				return 'audio/wave';
-			}
-			break;
-		case '3c737667':
-		case '3c3f786d':
-			return 'image/svg+xml';
-		case '0010':
-			return 'image/x-icon';
-		case '49492a0':
-		return 'image/tiff';
-		case '25504446':
-			return 'application/pdf';
-		case 'fff15080':
-			return 'audio/aac';
-		case '494433':
-			return 'audio/mpeg';
-		case '4f67530':
-			return 'application/ogg';
-		case '4f676753':
-			return 'audio/ogg';
-		case '3026b275':
-			return 'video/x-ms-wma';
-		case '00014':
-			return 'video/quicktime';
-		case '00020':
-			return 'video/mp4';
-		case '1a45dfa3':
-			return 'video/webm';
-		case '3026b275':
-			return 'video/x-ms-wmv';
-		case 'd0cf11e0':
-			return 'application/msword';
-		case '504b34':
-			return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
-		case 'd0cf11e0':
-			return 'application/vnd.ms-powerpoint';
-		case '504b34':
-			return 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
-		case 'd0cf11e0':
-			return 'application/vnd.ms-excel';
-		case '504b34':
-			return 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-		default:
-			return;
+	if(header === '52494646') {
+		let patternWebp = [52, 49, 46, 46, 0, 0, 0, 0, 57, 45, 42, 50, 56, 50];
+		if(isMatchPattern(arrayBuffer, patternWebp)) {
+			return 'image/webp';
+		}
+		let patternWave = [52, 49, 46, 46, 0, 0, 0, 0, 57, 41, 56, 45];
+		if(isMatchPattern(arrayBuffer, patternWave)) {
+			return 'audio/wav';
+		}
+	} else if(header === 'a3c73766720786d6c6e733d2268') {
+		return 'image/svg+xml';
+	} else {
+		let arr = (new Uint8Array(arrayBuffer)).subarray(0, 4);
+		let header = '';
+		for (let i = 0; i < arr.length; i++) {
+			header += arr[i].toString(16);
+		}
+		switch (header) {
+			case '424d':
+				return 'image/bmp';
+			case '89504e47':
+				return 'image/png';
+			case '47494638':
+				return 'image/gif';
+			case 'ffd8ff':
+			case 'ffd8ffe0':
+			case 'ffd8ffe1':
+			case 'ffd8ffe2':
+			case 'ffd8ffe3':
+			case 'ffd8ffe8':
+			case 'ffd8ffdb':
+				return 'image/jpeg';
+			case '52494646':
+				if(_isMatchPattern(arrayBuffer,
+					[0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00, 0x57, 0x45, 0x42, 0x50, 0x56, 0x50],
+					[0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF])) {
+					return 'image/webp';
+				} else if(_isMatchPattern(arrayBuffer,
+					[0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00, 0x41, 0x56, 0x49, 0x20],
+					[0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF])) {
+					return 'video/avi';
+				} else if(_isMatchPattern(arrayBuffer,
+					[0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00, 0x57, 0x41, 0x56, 0x45],
+					[0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF])) {
+					return 'audio/wave';
+				}
+				break;
+			case '3c737667':
+			case '3c3f786d':
+				return 'image/svg+xml';
+			case '0010':
+				return 'image/x-icon';
+			case '49492a0':
+			return 'image/tiff';
+			case '25504446':
+				return 'application/pdf';
+			case 'fff15080':
+				return 'audio/aac';
+			case '494433':
+				return 'audio/mpeg';
+			case '4f67530':
+				return 'application/ogg';
+			case '4f676753':
+				return 'audio/ogg';
+			case '3026b275':
+				return 'video/x-ms-wma';
+			case '00014':
+				return 'video/quicktime';
+			case '00020':
+				return 'video/mp4';
+			case '1a45dfa3':
+				return 'video/webm';
+			case '3026b275':
+				return 'video/x-ms-wmv';
+			case 'd0cf11e0':
+				return 'application/msword';
+			case '504b34':
+				return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+			case 'd0cf11e0':
+				return 'application/vnd.ms-powerpoint';
+			case '504b34':
+				return 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+			case 'd0cf11e0':
+				return 'application/vnd.ms-excel';
+			case '504b34':
+				return 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+			default:
+				return;
+		}
 	}
 };
 export const base64ToHex = (base64) => {

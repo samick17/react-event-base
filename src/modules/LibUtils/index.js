@@ -1,2 +1,1 @@
-import * as LibUtils$ from '../../utils/LibUtils';
-export default LibUtils$;
+export * from '../../utils/LibUtils';

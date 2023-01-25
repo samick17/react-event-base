@@ -193,5 +193,3 @@ export const createDraggable = (elem, {onStart, onDrag, onEnd, cancelable}={}) =
     return result.unbind;
   }
 };
-
-export default createDraggable;

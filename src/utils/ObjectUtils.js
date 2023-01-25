@@ -595,14 +595,16 @@ export const deepEqual = (object1, object2) => {
     if(object1 === object2) {
         return true;
     } else {
-        if(object1.constructor.name === object2.constructor.name && object1.constructor.name === 'Object') {
-            return JSON.stringify(object1) === JSON.stringify(object2);
-        } else {
-            try {
-                return JSON.stringify(object1) === JSON.stringify(object2);
-            } catch(err) {
+        try {
+            const keys1 = Object.keys(object1);
+            const keys2 = Object.keys(object2);
+            if(keys1.length === keys2.length) {
+                return JSON.stringify(keys1.sort().map(key => object1[key])) === JSON.stringify(keys2.sort().map(key => object2[key]));
+            } else {
                 return false;
             }
+        } catch(err) {
+            return false;
         }
     }
 };

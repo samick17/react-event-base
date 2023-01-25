@@ -1,2 +1,1 @@
-import * as VK$ from '../../utils/VK';
-export default VK$;
+export * from '../../utils/VK';

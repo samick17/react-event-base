@@ -1,2 +1,1 @@
-import * as Mathf from '../../core/Mathf';
-export default Mathf;
+export * from '../../core/Mathf';

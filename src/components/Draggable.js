@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseComponent from './BaseComponent.js';
-import Draggable from '../core/Draggable.js';
+import { createDraggable } from '../core/Draggable.js';
 
 // getDraggableElement
 // onBeforeMove
@@ -11,7 +11,7 @@ class DraggableComponent extends BaseComponent {
 	onRef = (node) => {
 		this.unbindEvent('unbindDraggableEvent');
 		if(node) {
-			this.unbindDraggableEvent = Draggable.createDraggable(node, {
+			this.unbindDraggableEvent = createDraggable(node, {
 				onStart: (point, context) => {
 					context.factors = this.props.factors;
 					context.startPos = {

@@ -1,2 +1,1 @@
-import * as IOUtils$ from '../../utils/IOUtils';
-export default IOUtils$;
+export * from '../../utils/IOUtils';
